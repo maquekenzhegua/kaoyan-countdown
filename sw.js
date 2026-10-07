@@ -1,5 +1,5 @@
 /* 考研上岸挂历 - Service Worker:缓存优先,后台静默更新 */
-var CACHE = "ky28-v4";
+var CACHE = "ky28-v5";
 var ASSETS = [
   "./",
   "./index.html",
@@ -9,15 +9,15 @@ var ASSETS = [
   "./icon-192.png",
   "./icon-512.png",
   "./apple-touch-icon.png",
-  "./img/thu.jpg",
-  "./img/pku.jpg",
-  "./img/fudan.jpg",
-  "./img/sjtu.jpg",
-  "./img/zju.jpg",
-  "./img/nju.jpg",
-  "./img/ustc.jpg",
-  "./img/hit.jpg",
-  "./img/xjtu.jpg"
+  "./img/thu-1.jpg",
+  "./img/pku-1.jpg",
+  "./img/fudan-1.jpg",
+  "./img/sjtu-1.jpg",
+  "./img/zju-1.jpg",
+  "./img/nju-1.jpg",
+  "./img/ustc-1.jpg",
+  "./img/hit-1.jpg",
+  "./img/xjtu-1.jpg"
 ];
 
 self.addEventListener("install", function (e) {

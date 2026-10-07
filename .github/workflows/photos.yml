@@ -1,0 +1,38 @@
+name: Fetch campus gate photos
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  photos:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Pillow
+        run: python -m pip install --quiet Pillow
+
+      - name: Download gate photos from Wikimedia Commons
+        run: python scripts/fetch_gate_photos.py
+
+      - name: Clean up temp files
+        run: rm -f img/credits-gates.json img/ping.txt
+
+      - name: Commit new photos
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add img/
+          if git diff --cached --quiet; then
+            echo "No new photos"
+          else
+            git commit -m "补充各校校门照片(-2 图)"
+            git push
+          fi

@@ -85,6 +85,7 @@
   .sub{font-size:12.5px;color:var(--ink2);letter-spacing:.08em;font-variant-numeric:tabular-nums}
   .quote{font-family:var(--serif);text-align:center;font-size:13.5px;line-height:1.9;color:#6d5d4b;
     padding:9px 22px 0;letter-spacing:.06em}
+  .quote-by{display:block;font-size:11px;color:#a08d74;margin-top:5px;letter-spacing:.18em;font-family:var(--serif)}
   .meta{margin-top:auto;padding:10px 18px calc(max(env(safe-area-inset-bottom),12px) + 12px)}
   .prog-top{display:flex;justify-content:space-between;align-items:baseline;font-size:12px;color:var(--ink2);
     font-variant-numeric:tabular-nums}
@@ -175,7 +176,7 @@
       <div class="big"><span id="days">--</span><i>天</i></div>
       <div class="sub" id="subCount"></div>
     </div>
-    <div class="quote" id="quote"></div>
+    <p class="quote"><span id="quoteText"></span><span class="quote-by" id="quoteBy"></span></p>
     <div class="meta">
       <div class="prog-top"><span id="stick"></span><b id="pct"></b></div>
       <div class="bar"><i id="barFill"></i></div>
@@ -240,68 +241,63 @@
   var KEY = "ky28.v2";
   var DEF_DATE = "2027-12-18", DEF_TIME = "08:30";
   var SCHOOLS = [
-    { id:"thu",  name:"清华大学",       motto:"自强不息 · 厚德载物" },
-    { id:"pku",  name:"北京大学",       motto:"思想自由 · 兼容并包" },
-    { id:"fudan",name:"复旦大学",       motto:"博学而笃志 · 切问而近思" },
-    { id:"sjtu", name:"上海交通大学",   motto:"饮水思源 · 爱国荣校" },
-    { id:"zju",  name:"浙江大学",       motto:"求是创新" },
-    { id:"nju",  name:"南京大学",       motto:"诚朴雄伟 · 励学敦行" },
-    { id:"ustc", name:"中国科学技术大学", motto:"红专并进 · 理实交融" },
-    { id:"hit",  name:"哈尔滨工业大学", motto:"规格严格 · 功夫到家" },
-    { id:"xjtu", name:"西安交通大学",   motto:"精勤求学 · 敦笃励志" }
+    { id:"thu",  name:"清华大学",       motto:"自强不息 · 厚德载物", photos:["thu-1.jpg","thu-2.jpg"] },
+    { id:"pku",  name:"北京大学",       motto:"思想自由 · 兼容并包", photos:["pku-1.jpg","pku-2.jpg"] },
+    { id:"fudan",name:"复旦大学",       motto:"博学而笃志 · 切问而近思", photos:["fudan-1.jpg","fudan-2.jpg"] },
+    { id:"sjtu", name:"上海交通大学",   motto:"饮水思源 · 爱国荣校", photos:["sjtu-1.jpg","sjtu-2.jpg"] },
+    { id:"zju",  name:"浙江大学",       motto:"求是创新", photos:["zju-1.jpg","zju-2.jpg"] },
+    { id:"nju",  name:"南京大学",       motto:"诚朴雄伟 · 励学敦行", photos:["nju-1.jpg","nju-2.jpg"] },
+    { id:"ustc", name:"中国科学技术大学", motto:"红专并进 · 理实交融", photos:["ustc-1.jpg","ustc-2.jpg"] },
+    { id:"hit",  name:"哈尔滨工业大学", motto:"规格严格 · 功夫到家", photos:["hit-1.jpg","hit-2.jpg"] },
+    { id:"xjtu", name:"西安交通大学",   motto:"精勤求学 · 敦笃励志", photos:["xjtu-1.jpg","xjtu-2.jpg"] }
   ];
   /* 每日一句按备考阶段分层:far 长线期 >180 天,mid 强化期 60~180 天,sprint 冲刺期 ≤60 天 */
   var QUOTES = {
     far: [
-      "你多背的每一个单词,都是考场上的底气。",
-      "图书馆的灯不会白亮,你熬的夜也不会。",
-      "现在偷的懒,都是给对手让的路。",
-      "你不是在刷题,你是在给录取通知书盖章。",
-      "今天的状态,决定明年此时的位置。",
-      "桌上的咖啡会凉,心里的火不能灭。",
-      "别人还在犹豫,你已经在路上。",
-      "把手机放远一点,把梦想拉近一点。",
-      "背不完就一点一点背,反正每天都在变强。",
-      "这一年孤单吗?不,有四百多万人陪你。",
-      "早安,未来的研究生。",
-      "晚自习结束的时候,记得对自己说声辛苦了。",
-      "录取通知书已经在打印了,就等你签字。",
-      "你现在流的汗,都是明年查分时的泪——甜的。",
-      "累是常态,坚持下来的都是研究生。",
-      "基础打得越牢,后期冲刺越稳。",
-      "长跑现在拼的不是速度,是不掉队。",
-      "单词是地基,现在多垒一块,考场上就稳一分。"
+      { t: "路漫漫其修远兮,吾将上下而求索。", by: "屈原 ·《离骚》" },
+      { t: "不积跬步,无以至千里;不积小流,无以成江海。", by: "荀子 ·《劝学》" },
+      { t: "锲而舍之,朽木不折;锲而不舍,金石可镂。", by: "荀子 ·《劝学》" },
+      { t: "合抱之木,生于毫末;九层之台,起于累土。", by: "《老子》" },
+      { t: "博观而约取,厚积而薄发。", by: "苏轼" },
+      { t: "古之立大事者,不惟有超世之才,亦必有坚忍不拔之志。", by: "苏轼 ·《晁错论》" },
+      { t: "宝剑锋从磨砺出,梅花香自苦寒来。", by: "《警世贤文》" },
+      { t: "非学无以广才,非志无以成学。", by: "诸葛亮 ·《诫子书》" },
+      { t: "黑发不知勤学早,白首方悔读书迟。", by: "颜真卿 ·《劝学》" },
+      { t: "业精于勤,荒于嬉;行成于思,毁于随。", by: "韩愈 ·《进学解》" },
+      { t: "千淘万漉虽辛苦,吹尽狂沙始到金。", by: "刘禹锡 ·《浪淘沙》" },
+      { t: "纸上得来终觉浅,绝知此事要躬行。", by: "陆游" },
+      { t: "士不可以不弘毅,任重而道远。", by: "《论语·泰伯》" },
+      { t: "少年易老学难成,一寸光阴不可轻。", by: "朱熹 ·《偶成》" }
     ],
     mid: [
-      "真题刷三遍,上岸稳一半。",
-      "政治可以九月再开始,单词不能一天停下。",
-      "数学错题本越厚,考场上心里越有底。",
-      "秋季是拉开差距的季节,别松劲。",
-      "专业课笔记该整理成体系了,现在正是时候。",
-      "单词会忘,题会做错,但坚持从不白费。",
-      "大纲千变万化,基础扎实的人最不怕。",
-      "每天一套真题节奏,练到形成肌肉记忆。",
-      "不要和别人比进度,要和昨天的自己比。",
-      "把薄弱科目排进每天的黄金时间。"
+      { t: "千磨万击还坚劲,任尔东西南北风。", by: "郑燮 ·《竹石》" },
+      { t: "长风破浪会有时,直挂云帆济沧海。", by: "李白 ·《行路难》" },
+      { t: "山重水复疑无路,柳暗花明又一村。", by: "陆游 ·《游山西村》" },
+      { t: "不畏浮云遮望眼,自缘身在最高层。", by: "王安石 ·《登飞来峰》" },
+      { t: "会当凌绝顶,一览众山小。", by: "杜甫 ·《望岳》" },
+      { t: "操千曲而后晓声,观千剑而后识器。", by: "刘勰 ·《文心雕龙》" },
+      { t: "天将降大任于是人也,必先苦其心志,劳其筋骨。", by: "《孟子·告子下》" },
+      { t: "精诚所至,金石为开。", by: "《后汉书》" },
+      { t: "欲穷千里目,更上一层楼。", by: "王之涣 ·《登鹳雀楼》" },
+      { t: "沉舟侧畔千帆过,病树前头万木春。", by: "刘禹锡" }
     ],
     sprint: [
-      "困了就趴十分钟,醒了接着背肖四。",
-      "政治大题背起来,错题本翻起来。",
-      "准考证记得打印,考点酒店早点订。",
-      "最后几十天,稳住心态就是胜利。",
-      "把错题再过一遍,考场上全是熟脸。",
-      "离考场越近,越要稳住自己的节奏。",
-      "你现在多背的每道大题,都是考场上的底气。",
-      "按时睡觉,考场上清醒的脑子最值钱。",
-      "不要再开新题了,吃透旧题更重要。",
-      "坚持到走出考场,你就已经赢了大半。"
+      { t: "十年磨一剑,霜刃未曾试。", by: "贾岛 ·《剑客》" },
+      { t: "黄沙百战穿金甲,不破楼兰终不还。", by: "王昌龄 ·《从军行》" },
+      { t: "大鹏一日同风起,扶摇直上九万里。", by: "李白 ·《上李邕》" },
+      { t: "春风得意马蹄疾,一日看尽长安花。", by: "孟郊 ·《登科后》" },
+      { t: "雄关漫道真如铁,而今迈步从头越。", by: "毛泽东 ·《忆秦娥·娄山关》" },
+      { t: "天生我材必有用,千金散尽还复来。", by: "李白 ·《将进酒》" },
+      { t: "数风流人物,还看今朝。", by: "毛泽东 ·《沁园春·雪》" },
+      { t: "有志者,事竟成,破釜沉舟,百二秦关终属楚;苦心人,天不负,卧薪尝胆,三千越甲可吞吴。", by: "蒲松龄 · 自勉联" }
     ]
   };
   function dailyQuote(cal){
     var bucket = cal > 180 ? "far" : (cal > 60 ? "mid" : "sprint");
     var list = QUOTES[bucket];
     var qi = Math.floor(Date.now() / 86400000) % list.length;
-    $("quote").textContent = "「 " + list[qi] + " 」";
+    $("quoteText").textContent = "「 " + list[qi].t + " 」";
+    $("quoteBy").textContent = list[qi].by ? "── " + list[qi].by : "";
   }
 
   var todayStr = function(d){ d = d || new Date();
@@ -362,17 +358,23 @@
     $("fTime").value = store.time;
     renderYearChips();
     lazyDay = ""; tick();
-    showSchool(pickSchoolIdx());
+    var si = pickSchoolIdx();
+    if(si >= 0) applySchool(si);
   }
   $("yearChips").addEventListener("click", function(e){
     var b = e.target.closest(".yc"); if(!b) return;
     applyYear(+b.dataset.y);
   });
 
-  /* ---------- 校园照片 ---------- */
+  /* ---------- 校园照片:每校多张,跨校轮换池 ---------- */
   var imgA = $("imgA"), imgB = $("imgB"), front = imgA;
   var dayIndex = Math.floor(Date.now() / 86400000);
-  var currentIdx = dayIndex % SCHOOLS.length;
+  var POOL = [];   // {s: 学校下标, file: 文件名}
+  var dead = {};   // 加载失败的照片标记
+  SCHOOLS.forEach(function(s, si){
+    (s.photos || []).forEach(function(f){ POOL.push({ s: si, file: f }); });
+  });
+  var currentIdx = 0, currentPi = 0;
   function pickSchoolIdx(){
     var g = store.goal.trim();
     if(g){
@@ -383,7 +385,27 @@
     if(store.school){
       for(var j = 0; j < SCHOOLS.length; j++){ if(SCHOOLS[j].id === store.school) return j; }
     }
-    return dayIndex % SCHOOLS.length;
+    return -1; /* 未锁定,按天轮换 */
+  }
+  function liveIdx(start, dir){
+    if(dir === 0){ /* 从 start 起找第一个可用 */
+      for(var k = 0; k < POOL.length; k++){
+        var i0 = (start + k) % POOL.length;
+        if(!dead[POOL[i0].file]) return i0;
+      }
+      return start;
+    }
+    for(var k2 = 1; k2 <= POOL.length; k2++){
+      var i = ((start + dir * k2) % POOL.length + POOL.length) % POOL.length;
+      if(!dead[POOL[i].file]) return i;
+    }
+    return start;
+  }
+  function schoolFirstPhoto(si){
+    for(var i = 0; i < POOL.length; i++){
+      if(POOL[i].s === si && !dead[POOL[i].file]) return i;
+    }
+    return -1;
   }
   function finishSwap(img){
     if(front !== img){
@@ -391,25 +413,33 @@
       front.classList.remove("show");
       front = img;
     }
-    var nx = SCHOOLS[(currentIdx + 1) % SCHOOLS.length];
-    var pre = new Image(); pre.src = "img/" + nx.id + ".jpg";
+    var nxt = POOL[liveIdx(currentPi, 1)];
+    if(nxt){ var pre = new Image(); pre.src = "img/" + nxt.file; }
   }
-  function showSchool(i){
-    currentIdx = ((i % SCHOOLS.length) + SCHOOLS.length) % SCHOOLS.length;
-    var sc = SCHOOLS[currentIdx];
+  function showPhoto(pi){
+    currentPi = ((pi % POOL.length) + POOL.length) % POOL.length;
+    var entry = POOL[currentPi];
+    currentIdx = entry.s;
+    var sc = SCHOOLS[entry.s];
     $("schoolName").textContent = sc.name;
     $("schoolMotto").textContent = sc.motto;
     var nextImg = (front === imgA) ? imgB : imgA;
-    if(nextImg.getAttribute("data-id") === sc.id && nextImg.naturalWidth > 0){
-      finishSwap(nextImg); return;
-    }
     nextImg.onload = function(){ finishSwap(nextImg); };
-    nextImg.onerror = function(){ /* 加载失败保留当前照片 */ };
+    nextImg.onerror = function(){
+      dead[entry.file] = true;
+      var alt = liveIdx(currentPi, 1);
+      if(alt !== currentPi) showPhoto(alt);
+    };
     nextImg.setAttribute("data-id", sc.id);
-    nextImg.src = "img/" + sc.id + ".jpg";
-    if(nextImg.naturalWidth > 0) finishSwap(nextImg);
+    nextImg.src = "img/" + entry.file;
+    if(nextImg.naturalWidth > 0 && nextImg.getAttribute("data-id") === sc.id) finishSwap(nextImg);
   }
-  function swapPhoto(){ showSchool(currentIdx + 1); }
+  function applySchool(si){
+    var pi = schoolFirstPhoto(si);
+    if(pi < 0) pi = liveIdx(dayIndex % POOL.length, 0);
+    showPhoto(pi);
+  }
+  function swapPhoto(){ showPhoto(liveIdx(currentPi, 1)); }
   $("btnSwapPhoto").addEventListener("click", function(e){ e.stopPropagation(); swapPhoto(); });
   $("btnSwap").addEventListener("click", swapPhoto);
   $("photoBox").addEventListener("click", swapPhoto);
@@ -515,11 +545,11 @@
       if(g && (g.indexOf(SCHOOLS[i].name) >= 0 || (g.length >= 2 && SCHOOLS[i].name.indexOf(g) >= 0))){ matched = SCHOOLS[i].id; break; }
     }
     store.school = matched;
-    save(); showSchool(pickSchoolIdx()); lazyDay = ""; tick(); closeSheet();
+    save(); lazyDay = ""; tick(); var si = pickSchoolIdx(); if(si >= 0) applySchool(si); closeSheet();
   });
   $("btnReset").addEventListener("click", function(){
     store.exam = DEF_DATE; store.time = DEF_TIME; store.goal = ""; store.start = todayStr(); store.school = "";
-    save(); openSheet(); lazyDay = ""; tick(); showSchool(pickSchoolIdx());
+    save(); openSheet(); lazyDay = ""; tick(); applySchool(dayIndex % SCHOOLS.length);
   });
   var dl = $("schoolList");
   for(var i = 0; i < SCHOOLS.length; i++){
@@ -544,7 +574,8 @@
     }
   }catch(e){}
 
-  showSchool(pickSchoolIdx());
+  var initSi = pickSchoolIdx();
+  if(initSi >= 0){ applySchool(initSi); } else { showPhoto(liveIdx(dayIndex % POOL.length, 0)); }
   tick();
   setInterval(tick, 1000);
 })();
