@@ -351,7 +351,6 @@
     document.body.dataset.theme = "t" + n;
     var meta = document.querySelector('meta[name="theme-color"]');
     if(meta) meta.content = ["#05081a","#170614","#03130e","#0d0919"][n];
-    var bg = document.getElementById("bg");
   }
   $("btnTheme").addEventListener("click", function(){ applyTheme((store.theme + 1) % 4); renderSwatches(); });
 
