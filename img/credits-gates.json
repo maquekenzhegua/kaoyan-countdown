@@ -1,17 +1,17 @@
 {
-  "thu": {
-    "title": "File:Main building of Tsinghua University (20190709103617).jpg",
-    "artist": "a href=\"//commons.wikimedia.org/wiki/User:N509FZ\" title=\"User:N509FZ\" N509FZ /a",
-    "license": "CC BY-SA 4.0"
-  },
-  "pku": {
-    "title": "File:PekingUniversityGate.JPG",
-    "artist": "a href=\"//commons.wikimedia.org/wiki/User:Bcnof\" title=\"User:Bcnof\" Bcnof /a",
-    "license": "CC BY-SA 3.0"
+  "fudan": {
+    "title": "File:Fudan-building3.jpg",
+    "artist": "No machine-readable author provided.  a href=\"//commons.wikimedia.org/w/index.ph",
+    "license": "Public domain"
   },
   "zju": {
-    "title": "File:20231123 Zijingang Campus of Zhejiang University 01.jpg",
-    "artist": "a href=\"//commons.wikimedia.org/wiki/User:Windmemories\" title=\"User:Windmemories",
+    "title": "File:201912 Front Gate of the High School Affiliated to Zhejiang Normal University.jpg",
+    "artist": "a href=\"//commons.wikimedia.org/wiki/User:MNXANL\" title=\"User:MNXANL\" MNXANL /a",
+    "license": "CC BY-SA 4.0"
+  },
+  "nju": {
+    "title": "File:Nanjing Audit University Library.jpg",
+    "artist": "不定项选择DS📷",
     "license": "CC BY-SA 4.0"
   }
 }
