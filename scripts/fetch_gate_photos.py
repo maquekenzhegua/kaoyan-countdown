@@ -12,15 +12,16 @@ OUT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "img")
 UA = {"User-Agent": "KaoyanShanganApp/1.0 (personal countdown app; contact via github)"}
 
 PLAN = [
-    ("thu", ["Tsinghua University west gate", "Tsinghua University gate", "Tsinghua University main building"], ["二校門", "2019年二校门"]),
-    ("pku", ["Peking University west gate", "Peking University gate", "Peking University library"], ["Boya Pagoda", "Weiming Lake"]),
-    ("fudan", ["Fudan University gate", "Fudan University school gate", "Fudan University Handan"], ["GuanghuaTower"]),
-    ("sjtu", ["Shanghai Jiao Tong University library", "Shanghai Jiao Tong University Xuhui gate", "Shanghai Jiao Tong University historical"], ["Sjtu east gate"]),
-    ("zju", ["Zhejiang University gate", "Zhejiang University Qiushi", "Zhejiang University campu gate"], ["Third Teaching Building"]),
-    ("nju", ["Nanjing University gate", "Nanjing University Gulou campus", "Nanjing Universitybuilding"], ["Nanjing University 3"]),
-    ("ustc", ["Gate of University of Science and Technology of China", "USTC gate Hefei", "University of Science and Technology of China campus Hefei"], ["H2O", "水上报告厅"]),
-    ("hit", ["Harbin Institute of Technology main building", "Harbin Institute of Technology gate", "Harbin Institute of Technology museum"], ["201907 Harbin"]),
-    ("xjtu", ["Xi'an Jiaotong University gate", "Xi'an Jiaotong University north gate", "Xi'an Jiaotong University buildings"], ["PengKang", "Xi'an Jiaotong University 4"]),
+    # (id, 查询词, 排除的文件名关键词, 标题必须包含的关键词)
+    ("thu", ["清华大学主楼", "清华学堂", "清华大学西门", "Tsinghua University main building"], ["二校門", "二校门", "bus", "Bus"], ["清华", "Tsinghua"]),
+    ("pku", ["北京大学西门", "北京大学图书馆", "北京大学百周年纪念讲堂", "Peking University library"], ["Boya", "Weiming", "bus", "Bus"], ["北京大", "Peking"]),
+    ("fudan", ["复旦大学校门", "复旦大学正门", "复旦大学邯郸校区", "Fudan University campus"], ["Guanghua", "bus"], ["复旦", "Fudan"]),
+    ("sjtu", [], [], []),  # 已有图书馆照片,跳过
+    ("zju", ["浙江大学校门", "浙江大学求是大讲堂", "浙江大学紫金港", "Zhejiang University gate"], ["Third Teaching", "bus"], ["浙江大", "Zhejiang"]),
+    ("nju", ["南京大学校门", "南京大学鼓楼校区", "南京大学图书馆", "Nanjing University gate"], ["Nanjing University 3", "北大楼", "bus"], ["南京大", "Nanjing"]),
+    ("ustc", ["中国科学技术大学校门", "中国科学技术大学东门", "中国科学技术大学", "USTC gate"], ["H2O", "水上报告厅", "canteen", "eating"], ["科学技术大", "USTC"]),
+    ("hit", ["哈尔滨工业大学主楼", "哈尔滨工业大学校门", "哈尔滨工业大学活动中心", "Harbin Institute of Technology building"], ["201907 Harbin", "bus"], ["哈尔滨工业", "Harbin"]),
+    ("xjtu", ["西安交通大学校门", "西安交通大学主楼", "西安交通大学兴庆", "Xi'an Jiaotong University gate"], ["PengKang", "Xi'an Jiaotong University 4", "bus"], ["交通大", "Jiaotong"]),
 ]
 
 
@@ -36,11 +37,13 @@ def api_search(query):
         return json.load(r)
 
 
-def pick(pages, exclude):
+def pick(pages, exclude, must):
     cands = []
     for p in (pages or {}).values():
         title = p.get("title", "")
         if any(x in title for x in exclude):
+            continue
+        if must and not any(m in title for m in must):
             continue
         infos = p.get("imageinfo") or []
         if not infos:
@@ -49,10 +52,10 @@ def pick(pages, exclude):
         if ii.get("mime") != "image/jpeg":
             continue
         w, h = ii.get("width", 0), ii.get("height", 0)
-        if w < 900 or h < 560:
+        if w < 800 or h < 520:
             continue
         ratio = w / h
-        if ratio < 0.95 or ratio > 2.7:
+        if ratio < 0.9 or ratio > 3.0:
             continue
         meta = ii.get("extmetadata") or {}
         artist = meta.get("Artist", {}).get("value", "")
@@ -86,16 +89,18 @@ def main():
     os.makedirs(OUT_DIR, exist_ok=True)
     credits = {}
     failed = []
-    for sid, queries, exclude in PLAN:
+    for sid, queries, exclude, must in PLAN:
         dest = os.path.join(OUT_DIR, f"{sid}-2.jpg")
         if os.path.exists(dest):
             print(f"skip {sid} (exists)")
+            continue
+        if not queries:
             continue
         got = None
         for q in queries:
             try:
                 data = api_search(q)
-                c = pick(data.get("query", {}).get("pages"), exclude)
+                c = pick(data.get("query", {}).get("pages"), exclude, must)
                 if not c:
                     continue
                 download(c["url"], dest)
