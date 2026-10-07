@@ -13,5 +13,8 @@
 | 中国科学技术大学 | [File:中国科学与技术大学水上报告厅 USTC H2O Auditorium.jpg](https://commons.wikimedia.org/wiki/File:%E4%B8%AD%E5%9B%BD%E7%A7%91%E5%AD%A6%E4%B8%8E%E6%8A%80%E6%9C%AF%E5%A4%A7%E5%AD%A6%E6%B0%B4%E4%B8%8A%E6%8A%A5%E5%91%8A%E5%8E%85_USTC_H2O_Auditorium.jpg) | 见文件页 | CC BY 4.0 |
 | 哈尔滨工业大学 | [File:201907 Harbin Institute of Technology 01.jpg](https://commons.wikimedia.org/wiki/File:201907_Harbin_Institute_of_Technology_01.jpg) | Jonashtand | CC BY-SA 4.0 |
 | 西安交通大学 | [File:Xi'an Jiaotong University 4.jpg](https://commons.wikimedia.org/wiki/File:Xi%27an_Jiaotong_University_4.jpg) | Peter Potrowl | CC BY 3.0 |
+| 上海交通大学(第二张) | [File:Baoyugang Library@SJTU.jpg](https://commons.wikimedia.org/wiki/File:Baoyugang_Library@SJTU.jpg) | 见文件页 | CC BY-SA 3.0 |
+
+各校补充照片(校门/地标,文件名 `img/{校名}-2.jpg`)的作者与授权记录在仓库 `img/credits-gates.json`(由 CI 自动下载并提交)。
 
 农历转换使用开源库 [solarlunar](https://github.com/chinese-lunar/solarlunar)(MIT License)。
