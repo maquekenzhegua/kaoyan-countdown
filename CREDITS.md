@@ -14,6 +14,8 @@
 | 哈尔滨工业大学 | [File:201907 Harbin Institute of Technology 01.jpg](https://commons.wikimedia.org/wiki/File:201907_Harbin_Institute_of_Technology_01.jpg) | Jonashtand | CC BY-SA 4.0 |
 | 西安交通大学 | [File:Xi'an Jiaotong University 4.jpg](https://commons.wikimedia.org/wiki/File:Xi%27an_Jiaotong_University_4.jpg) | Peter Potrowl | CC BY 3.0 |
 | 上海交通大学(第二张) | [File:Baoyugang Library@SJTU.jpg](https://commons.wikimedia.org/wiki/File:Baoyugang_Library@SJTU.jpg) | 见文件页 | CC BY-SA 3.0 |
+| 清华大学(第二张·主楼) | [File:Main building of Tsinghua University (20190709103617).jpg](https://commons.wikimedia.org/wiki/File:Main_building_of_Tsinghua_University_(20190709103617).jpg) | N509FZ | CC BY-SA 4.0 |
+| 北京大学(第二张·西门) | [File:PekingUniversityGate.JPG](https://commons.wikimedia.org/wiki/File:PekingUniversityGate.JPG) | Bcnof | CC BY-SA 3.0 |
 
 各校补充照片(校门/地标,文件名 `img/{校名}-2.jpg`)的作者与授权记录在仓库 `img/credits-gates.json`(由 CI 自动下载并提交)。
 
