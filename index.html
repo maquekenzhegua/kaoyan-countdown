@@ -126,6 +126,43 @@
   .yc.on{background:var(--red);border-color:var(--red);color:#fff;font-weight:700}
   .yc.on small{color:rgba(255,255,255,.85)}
   .hint{font-size:11px;color:#a08d74;line-height:1.7;margin-top:6px}
+  .rem-row{display:flex;align-items:center;gap:10px}
+  .rem-row input[type=time]{flex:1}
+  .rem-lab{font-size:13px;color:var(--ink);width:34px;flex:none}
+  .switch{position:relative;display:inline-block;width:46px;height:26px;flex:none}
+  .switch input{opacity:0;width:0;height:0}
+  .switch i{position:absolute;inset:0;background:#cbbb9f;border-radius:99px;transition:.25s;cursor:pointer}
+  .switch i::before{content:"";position:absolute;width:20px;height:20px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.25s;box-shadow:0 1px 3px rgba(0,0,0,.25)}
+  .switch input:checked + i{background:var(--red)}
+  .switch input:checked + i::before{transform:translateX(20px)}
+  /* ---------- 时间轴 ---------- */
+  #tlWrap{position:fixed;inset:0;z-index:25;visibility:hidden}
+  #tlWrap.open{visibility:visible}
+  #tlMask{position:absolute;inset:0;background:rgba(20,10,5,.5);opacity:0;transition:opacity .3s}
+  #tlWrap.open #tlMask{opacity:1}
+  #tlSheet{position:absolute;left:0;right:0;bottom:0;max-width:520px;margin:0 auto;height:86dvh;
+    background:var(--paper);border-radius:24px 24px 0 0;padding:12px 0 calc(max(env(safe-area-inset-bottom),16px) + 12px);
+    transform:translateY(105%);transition:transform .38s cubic-bezier(.22,.9,.3,1);
+    box-shadow:0 -18px 60px rgba(0,0,0,.45);display:flex;flex-direction:column;color:var(--ink)}
+  #tlWrap.open #tlSheet{transform:translateY(0)}
+  #tlSheet h2{font-family:var(--serif);font-size:17px;font-weight:700;letter-spacing:.3em;text-indent:.3em;text-align:center;margin-bottom:4px}
+  .tl-sub{font-size:11px;color:#a08d74;text-align:center;margin-bottom:10px;letter-spacing:.05em}
+  .tl-list{flex:1;overflow-y:auto;padding:8px 24px 10px}
+  .tl-item{position:relative;padding:0 0 20px 28px}
+  .tl-item::before{content:"";position:absolute;left:7px;top:18px;bottom:-2px;width:2px;background:#e6d7bd}
+  .tl-item:last-child::before{display:none}
+  .tl-dot{position:absolute;left:0;top:3px;width:16px;height:16px;border-radius:50%;background:#fff;border:2.5px solid #d8c5a8;box-sizing:border-box}
+  .tl-item.past .tl-dot{background:#c4b295;border-color:#c4b295}
+  .tl-item.past .tl-name{color:#a5937c}
+  .tl-item.now .tl-dot{background:var(--red);border-color:var(--red);box-shadow:0 0 0 4px rgba(200,52,42,.16)}
+  .tl-item.next .tl-dot{border-color:var(--red)}
+  .tl-item.next .tl-name{color:var(--red-deep)}
+  .tl-name{font-size:14.5px;font-weight:700;color:var(--ink)}
+  .tl-badge{font-size:10.5px;color:#fff;background:var(--red);border-radius:6px;padding:2px 7px;margin-left:7px;font-weight:600;vertical-align:1px}
+  .tl-badge.done{background:#b3a28a}
+  .tl-badge.going{background:#e0663f}
+  .tl-date{font-size:11.5px;color:#a08d74;margin-top:2px;font-variant-numeric:tabular-nums}
+  .tl-note{font-size:12px;color:#8a7a68;margin-top:3px;line-height:1.65}
   .sheet-btns{display:flex;gap:10px;margin-top:18px}
   .sheet-btns button{flex:1;font-family:var(--sans);font-size:15px;border-radius:13px;padding:12px 0;cursor:pointer;letter-spacing:.2em;text-indent:.2em}
   #btnSave{border:1px solid var(--red);color:#fff;font-weight:600;background:var(--red)}
@@ -185,6 +222,10 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M21 12a9 9 0 1 1-2.6-6.3M21 3v6h-6"/></svg>
           换一所
         </button>
+        <button class="btn" id="btnTimeline">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 11h18"/><path d="M7.5 15.5l2 2 4-4"/></svg>
+          时间轴
+        </button>
         <button class="btn" id="btnSettings">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="3.2"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.87l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.7 1.7 0 0 0-1.87-.34 1.7 1.7 0 0 0-1.03 1.56V21a2 2 0 1 1-4 0v-.09a1.7 1.7 0 0 0-1.11-1.56 1.7 1.7 0 0 0-1.87.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.7 1.7 0 0 0 .34-1.87 1.7 1.7 0 0 0-1.56-1.03H3a2 2 0 1 1 0-4h.09A1.7 1.7 0 0 0 4.65 8.9a1.7 1.7 0 0 0-.34-1.87l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.7 1.7 0 0 0 1.87.34h.08A1.7 1.7 0 0 0 10.12 3V3a2 2 0 1 1 4 0v.09a1.7 1.7 0 0 0 1.03 1.56 1.7 1.7 0 0 0 1.87-.34l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.7 1.7 0 0 0-.34 1.87v.08a1.7 1.7 0 0 0 1.56 1.03H21a2 2 0 1 1 0 4h-.09a1.7 1.7 0 0 0-1.51 1.03z"/></svg>
           设置
@@ -227,9 +268,31 @@
       <label>开始备考日期</label>
       <input type="date" id="fStart">
     </div>
+    <div class="field">
+      <label>每日提醒(安卓 App 生效)</label>
+      <div class="rem-row">
+        <label class="switch"><input type="checkbox" id="fRemind"><i></i></label>
+        <span class="rem-lab" id="remLab">关闭</span>
+        <input type="time" id="fRemindTime" value="08:00">
+      </div>
+      <p class="hint">每天定时推送「距离考研还有 N 天」。首次开启请允许通知权限。</p>
+    </div>
     <div class="sheet-btns">
       <button id="btnReset">恢复默认</button>
       <button id="btnSave">保 存</button>
+    </div>
+  </div>
+</div>
+
+<div id="tlWrap" aria-hidden="true">
+  <div id="tlMask"></div>
+  <div id="tlSheet" role="dialog" aria-label="考研全流程时间轴">
+    <div class="grab"></div>
+    <h2>考研全流程时间轴</h2>
+    <p class="tl-sub" id="tlSub"></p>
+    <div class="tl-list" id="tlList"></div>
+    <div class="sheet-btns" style="padding:10px 24px 0">
+      <button id="btnTlClose" style="background:transparent;border:1px solid #d5c5ae;color:var(--ink2)">关 闭</button>
     </div>
   </div>
 </div>
@@ -300,9 +363,80 @@
     $("quoteBy").textContent = list[qi].by ? "── " + list[qi].by : "";
   }
 
+  /* ---------- 考研全流程时间轴 ---------- */
+  function fmtMD(d){ return (d.getMonth()+1) + "月" + d.getDate() + "日"; }
+  function tlData(){
+    var tgt = target(), ky = kaoyanYear(tgt), prev = ky - 1, exam = parseDate(store.exam);
+    function D(y,m,dd){ return new Date(y, m-1, dd); }
+    function after(base, days){ var x = new Date(base.getTime()); x.setDate(x.getDate()+days); return x; }
+    return [
+      { n:"网上咨询周", s:D(prev,9,22), e:D(prev,9,26), est:1, note:"在研招网向目标院校招生办在线提问" },
+      { n:"预报名", s:D(prev,9,24), e:D(prev,9,27), est:1, note:"应届生可提前填报,信息正式有效" },
+      { n:"正式报名", s:D(prev,10,8), e:D(prev,10,25), est:1, note:"研招网缴费报名,逾期不能补报" },
+      { n:"网上确认", s:D(prev,10,28), e:D(prev,11,5), est:1, note:"上传照片、核对信息,各省时间不同,千万别错过" },
+      { n:"打印准考证", s:after(exam,-10), e:after(exam,-1), est:0, note:"研招网下载 PDF,建议多打印几份" },
+      { n:"初试", s:exam, e:after(exam,1), est:store.exam === estimateForYear(ky), note:"第一天:政治/管理类联考 + 英语;第二天:业务课" },
+      { n:"成绩公布", s:D(ky,2,21), e:D(ky,2,28), est:1, note:"各省出分时间略有先后,留意研招网" },
+      { n:"国家线公布", s:D(ky,3,10), e:D(ky,3,17), est:1, note:"34 所自划线院校分数线公布更早" },
+      { n:"复试与调剂", s:D(ky,3,18), e:D(ky,4,30), est:1, note:"一志愿复试 + 调剂系统,把握每一次机会" },
+      { n:"拟录取名单", s:D(ky,4,20), e:D(ky,6,30), est:1, note:"官网公示,坐等录取通知书" },
+      { n:"研究生入学", s:D(ky,9,1), e:D(ky,9,5), est:0, note:"带上录取通知书,开启新旅程" }
+    ];
+  }
+  function renderTimeline(){
+    var tgt = target(), ky = kaoyanYear(tgt);
+    $("tlSub").textContent = "以 " + ky + " 考研为例 · 标「预计」的为惯例时间,以官方公告为准";
+    var now = new Date(); now.setHours(0,0,0,0);
+    var rows = tlData(), nextIdx = -1;
+    var state = rows.map(function(r){
+      if(now.getTime() > r.e.getTime()) return "past";
+      if(now.getTime() >= r.s.getTime()) return "now";
+      return "future";
+    });
+    for(var i = 0; i < rows.length; i++){ if(state[i] === "future"){ nextIdx = i; break; } }
+    var html = "";
+    for(var j = 0; j < rows.length; j++){
+      var r = rows[j], st = state[j], cls = st, badge = "";
+      if(st === "past") badge = '<span class="tl-badge done">已完成</span>';
+      else if(st === "now") badge = '<span class="tl-badge going">进行中</span>';
+      else if(j === nextIdx){
+        var n = Math.round((r.s - now) / 86400000);
+        badge = '<span class="tl-badge">还有 ' + n + ' 天</span>';
+        cls = "next";
+      }
+      var date = (r.e.getTime() - r.s.getTime() >= 86400000) ? fmtMD(r.s) + " ~ " + fmtMD(r.e) : fmtMD(r.s);
+      html += '<div class="tl-item ' + cls + '"><div class="tl-dot"></div><div class="tl-body">' +
+        '<div class="tl-name">' + r.n + badge + '</div>' +
+        '<div class="tl-date">' + date + (r.est ? ' · 预计' : '') + '</div>' +
+        '<div class="tl-note">' + r.note + '</div></div></div>';
+    }
+    $("tlList").innerHTML = html;
+  }
+  function tlOpen(){ renderTimeline(); $("tlWrap").classList.add("open"); $("tlWrap").setAttribute("aria-hidden","false"); }
+  function tlClose(){ $("tlWrap").classList.remove("open"); $("tlWrap").setAttribute("aria-hidden","true"); }
+
+  /* ---------- 原生桥接(安卓小组件 / 每日提醒) ---------- */
+  var IS_APP = /capacitor/i.test(navigator.userAgent);
+  function nativePlugins(){
+    if(!IS_APP) return null;
+    return (window.Capacitor && window.Capacitor.Plugins) || null;
+  }
+  function syncNative(){
+    var P = nativePlugins(); if(!P || !P.NativeBridge) return;
+    var tgt = target(), ky = String(kaoyanYear(tgt));
+    var entry = POOL[currentPi] || { file: "thu-1.jpg", s: 0 };
+    var data = JSON.stringify({
+      exam: store.exam, ky: ky,
+      remind: !!store.remind, remindTime: store.remindTime || "08:00",
+      schoolName: SCHOOLS[entry.s].name, photoFile: entry.file
+    });
+    try{ P.NativeBridge.saveData({ key: "ky_native", value: data }); }catch(e){}
+    try{ P.NativeBridge.refresh(); }catch(e){}
+  }
+
   var todayStr = function(d){ d = d || new Date();
     return d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2,"0") + "-" + String(d.getDate()).padStart(2,"0"); };
-  var store = { exam: DEF_DATE, time: DEF_TIME, goal: "", start: todayStr(), school: "" };
+  var store = { exam: DEF_DATE, time: DEF_TIME, goal: "", start: todayStr(), school: "", remind: false, remindTime: "08:00" };
   try{
     var raw = localStorage.getItem(KEY);
     if(raw){ var s = JSON.parse(raw);
@@ -312,6 +446,8 @@
         if(typeof s.goal === "string") store.goal = s.goal;
         if(typeof s.start === "string" && /^\d{4}-\d{2}-\d{2}$/.test(s.start)) store.start = s.start;
         if(typeof s.school === "string") store.school = s.school;
+        if(typeof s.remind === "boolean") store.remind = s.remind;
+        if(typeof s.remindTime === "string" && /^\d{2}:\d{2}$/.test(s.remindTime)) store.remindTime = s.remindTime;
       }
     }
   }catch(e){}
@@ -360,6 +496,7 @@
     lazyDay = ""; tick();
     var si = pickSchoolIdx();
     if(si >= 0) applySchool(si);
+    syncNative();
   }
   $("yearChips").addEventListener("click", function(e){
     var b = e.target.closest(".yc"); if(!b) return;
@@ -415,6 +552,7 @@
     }
     var nxt = POOL[liveIdx(currentPi, 1)];
     if(nxt){ var pre = new Image(); pre.src = "img/" + nxt.file; }
+    try{ syncNative(); }catch(e){}
   }
   function showPhoto(pi){
     currentPi = ((pi % POOL.length) + POOL.length) % POOL.length;
@@ -527,12 +665,19 @@
     $("fDate").value = store.exam;
     $("fTime").value = store.time;
     $("fStart").value = store.start;
+    $("fRemind").checked = store.remind;
+    $("fRemindTime").value = store.remindTime;
+    $("remLab").textContent = store.remind ? "开启" : "关闭";
     renderYearChips();
     wrap.classList.add("open"); wrap.setAttribute("aria-hidden", "false");
   }
   function closeSheet(){ wrap.classList.remove("open"); wrap.setAttribute("aria-hidden", "true"); }
   $("btnSettings").addEventListener("click", openSheet);
   $("mask").addEventListener("click", closeSheet);
+  $("fRemind").addEventListener("change", function(){ $("remLab").textContent = this.checked ? "开启" : "关闭"; });
+  $("btnTimeline").addEventListener("click", tlOpen);
+  $("tlMask").addEventListener("click", tlClose);
+  $("btnTlClose").addEventListener("click", tlClose);
   $("btnSave").addEventListener("click", function(){
     var g = $("fGoal").value.trim();
     var d = $("fDate").value, t = $("fTime").value, st = $("fStart").value;
@@ -545,11 +690,18 @@
       if(g && (g.indexOf(SCHOOLS[i].name) >= 0 || (g.length >= 2 && SCHOOLS[i].name.indexOf(g) >= 0))){ matched = SCHOOLS[i].id; break; }
     }
     store.school = matched;
-    save(); lazyDay = ""; tick(); var si = pickSchoolIdx(); if(si >= 0) applySchool(si); closeSheet();
+    store.remind = $("fRemind").checked;
+    store.remindTime = $("fRemindTime").value && /^\d{2}:\d{2}$/.test($("fRemindTime").value) ? $("fRemindTime").value : "08:00";
+    if(store.remind && IS_APP){
+      var Pn = nativePlugins();
+      try{ if(Pn && Pn.NativeBridge) Pn.NativeBridge.requestNotifPermission(); }catch(e){}
+    }
+    save(); lazyDay = ""; tick(); var si = pickSchoolIdx(); if(si >= 0) applySchool(si); syncNative(); closeSheet();
   });
   $("btnReset").addEventListener("click", function(){
     store.exam = DEF_DATE; store.time = DEF_TIME; store.goal = ""; store.start = todayStr(); store.school = "";
-    save(); openSheet(); lazyDay = ""; tick(); applySchool(dayIndex % SCHOOLS.length);
+    store.remind = false; store.remindTime = "08:00";
+    save(); openSheet(); lazyDay = ""; tick(); applySchool(dayIndex % SCHOOLS.length); syncNative();
   });
   var dl = $("schoolList");
   for(var i = 0; i < SCHOOLS.length; i++){
@@ -577,6 +729,7 @@
   var initSi = pickSchoolIdx();
   if(initSi >= 0){ applySchool(initSi); } else { showPhoto(liveIdx(dayIndex % POOL.length, 0)); }
   tick();
+  syncNative();
   setInterval(tick, 1000);
 })();
 </script>

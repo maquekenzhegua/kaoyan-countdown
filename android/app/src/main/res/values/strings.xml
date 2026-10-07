@@ -4,4 +4,8 @@
     <string name="title_activity_main">上岸挂历</string>
     <string name="package_name">io.github.maquekenzhegua.kaoyan</string>
     <string name="custom_url_scheme">io.github.maquekenzhegua.kaoyan</string>
+    <string name="remind_channel_name">每日考研提醒</string>
+    <string name="remind_title_template">距离 %1$s 考研初试还有 %2$d 天</string>
+    <string name="remind_text">今日也要全力以赴,一战成硕!</string>
+    <string name="widget_photo_desc">校园照片</string>
 </resources>
