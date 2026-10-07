@@ -17,6 +17,13 @@
 | 清华大学(第二张·主楼) | [File:Main building of Tsinghua University (20190709103617).jpg](https://commons.wikimedia.org/wiki/File:Main_building_of_Tsinghua_University_(20190709103617).jpg) | N509FZ | CC BY-SA 4.0 |
 | 北京大学(第二张·西门) | [File:PekingUniversityGate.JPG](https://commons.wikimedia.org/wiki/File:PekingUniversityGate.JPG) | Bcnof | CC BY-SA 3.0 |
 
-各校补充照片(校门/地标,文件名 `img/{校名}-2.jpg`)的作者与授权记录在仓库 `img/credits-gates.json`(由 CI 自动下载并提交)。
+| 清华大学(第二张·主楼) | [File:Main building of Tsinghua University (20190709103617).jpg](https://commons.wikimedia.org/wiki/File:Main_building_of_Tsinghua_University_(20190709103617).jpg) | N509FZ | CC BY-SA 4.0 |
+| 北京大学(第二张·西门) | [File:PekingUniversityGate.JPG](https://commons.wikimedia.org/wiki/File:PekingUniversityGate.JPG) | Bcnof | CC BY-SA 3.0 |
+| 复旦大学(第二张) | [File:Fudan-building3.jpg](https://commons.wikimedia.org/wiki/File:Fudan-building3.jpg) | 见文件页 | Public domain |
+| 上海交通大学(第二张·图书馆) | [File:Baoyugang Library@SJTU.jpg](https://commons.wikimedia.org/wiki/File:Baoyugang_Library@SJTU.jpg) | 见文件页 | CC BY-SA 3.0 |
+| 浙江大学(第二张·紫金港南门) | [File:South Gate of Zhejiang University Zijingang Campus.jpg](https://commons.wikimedia.org/wiki/File:South_Gate_of_Zhejiang_University_Zijingang_Campus.jpg) | 星幻丶碎 | CC BY-SA 4.0 |
+| 南京大学(第二张) | [File:Nanjing University 20160714.jpg](https://commons.wikimedia.org/wiki/File:Nanjing_University_20160714.jpg) | Gmbsfd | CC BY-SA 4.0 |
+| 中国科学技术大学(第二张·校门) | [File:Gate of USTC.JPG](https://commons.wikimedia.org/wiki/File:Gate_of_USTC.JPG) | 见文件页 | CC BY-SA 3.0 |
+| 哈尔滨工业大学(第二张·西北门) | [File:哈尔滨工业大学西北门看主楼.jpg](https://commons.wikimedia.org/wiki/File:%E5%93%88%E5%B0%94%E6%BB%A8%E5%B7%A5%E4%B8%9A%E5%A4%A7%E5%AD%A6%E8%A5%BF%E5%8C%97%E9%97%A8%E7%9C%8B%E4%B8%BB%E6%A5%BC.jpg) | 见文件页 | CC BY-SA 4.0 |
 
 农历转换使用开源库 [solarlunar](https://github.com/chinese-lunar/solarlunar)(MIT License)。
