@@ -118,6 +118,12 @@
     border:1px solid #dbcbb4;border-radius:12px;padding:10px 12px;outline:none}
   .field input:focus{border-color:var(--red)}
   .grid2{display:grid;grid-template-columns:1.4fr 1fr;gap:10px}
+  .yearchips{display:flex;gap:8px;flex-wrap:wrap}
+  .yc{flex:1;min-width:52px;text-align:center;font-family:var(--sans);font-size:14px;color:var(--ink);
+    background:#fff;border:1.5px solid #dbcbb4;border-radius:11px;padding:9px 0;cursor:pointer;letter-spacing:.02em}
+  .yc small{display:block;font-size:9.5px;color:#a08d74;margin-top:1px}
+  .yc.on{background:var(--red);border-color:var(--red);color:#fff;font-weight:700}
+  .yc.on small{color:rgba(255,255,255,.85)}
   .hint{font-size:11px;color:#a08d74;line-height:1.7;margin-top:6px}
   .sheet-btns{display:flex;gap:10px;margin-top:18px}
   .sheet-btns button{flex:1;font-family:var(--sans);font-size:15px;border-radius:13px;padding:12px 0;cursor:pointer;letter-spacing:.2em;text-indent:.2em}
@@ -142,7 +148,7 @@
     <img class="pimg" id="imgB" alt="校园">
     <div class="scrim"></div>
     <div class="photo-top">
-      <div class="pt-title">28 考研 · 上岸倒计时</div>
+      <div class="pt-title" id="ptTitle">考研 · 上岸倒计时</div>
       <div class="seal"><span>上</span><span>岸</span></div>
     </div>
     <div class="photo-bottom">
@@ -194,6 +200,11 @@
     <div class="grab"></div>
     <h2>设 置</h2>
     <div class="field">
+      <label>你是哪一年考研?</label>
+      <div class="yearchips" id="yearChips"></div>
+      <p class="hint">选择后自动按惯例估算初试日期(12 月中下旬的周六)。准确日期以教育部公告为准,公布后可在下方自行修改。</p>
+    </div>
+    <div class="field">
       <label>目标院校(匹配到名校可锁定它的照片)</label>
       <input type="text" id="fGoal" maxlength="20" list="schoolList" placeholder="例如:复旦大学(可留空)">
       <datalist id="schoolList"></datalist>
@@ -209,7 +220,7 @@
           <input type="time" id="fTime">
         </div>
       </div>
-      <p class="hint">28 考研准确日期以教育部公告为准(通常在考前一年 8~9 月公布),届时来这里改一下即可。</p>
+      <p class="hint">考研准确日期以教育部公告为准(通常在考前一年 8~9 月公布),届时来这里改一下即可。</p>
     </div>
     <div class="field">
       <label>开始备考日期</label>
@@ -286,6 +297,46 @@
   function pad(n){ return String(n).padStart(2,"0"); }
   function kaoyanYear(t){ return t.getMonth() === 11 ? t.getFullYear() + 1 : t.getFullYear(); }
   var WD = ["日","一","二","三","四","五","六"];
+  /* 按历年惯例估算某考研年份的初试日期:初试为考前一年 12 月中下旬的周六(最接近 12 月 21 日) */
+  function estimateForYear(ky){
+    var y = ky - 1, best = 21, bestDiff = 99;
+    for(var d = 15; d <= 28; d++){
+      var dt = new Date(y, 11, d);
+      if(dt.getDay() !== 6) continue;
+      var diff = Math.abs(d - 21);
+      if(diff < bestDiff){ bestDiff = diff; best = d; }
+    }
+    return y + "-12-" + String(best).padStart(2, "0");
+  }
+  /* ---------- 考研年份选择 ---------- */
+  function yearOptions(){
+    var y = new Date().getFullYear();
+    return [y + 1, y + 2, y + 3, y + 4];
+  }
+  function renderYearChips(){
+    var opts = yearOptions(), cur = kaoyanYear(parseDate(store.exam));
+    var html = "";
+    for(var i = 0; i < opts.length; i++){
+      var on = opts[i] === cur ? " on" : "";
+      html += '<button class="yc' + on + '" data-y="' + opts[i] + '">' + String(opts[i]).slice(2) + '考研<small>' +
+              estimateForYear(opts[i]).replace("-", "年").replace("-", "月") + '日</small></button>';
+    }
+    $("yearChips").innerHTML = html;
+  }
+  function applyYear(ky){
+    store.exam = estimateForYear(ky);
+    store.time = "08:30";
+    save();
+    $("fDate").value = store.exam;
+    $("fTime").value = store.time;
+    renderYearChips();
+    lazyDay = ""; tick();
+    showSchool(pickSchoolIdx());
+  }
+  $("yearChips").addEventListener("click", function(e){
+    var b = e.target.closest(".yc"); if(!b) return;
+    applyYear(+b.dataset.y);
+  });
 
   /* ---------- 校园照片 ---------- */
   var imgA = $("imgA"), imgB = $("imgB"), front = imgA;
@@ -376,6 +427,7 @@
       $("quote").textContent = "「 " + QUOTES[qi] + " 」";
     }
     $("kicker").textContent = "距离 " + ky + " 考研初试还有";
+    $("ptTitle").textContent = String(ky).slice(2) + " 考研 · 上岸倒计时";
     var cal = Math.round((examDay - day0) / 86400000);
     var elDays = $("days"), elSub = $("subCount"), elStick = $("stick"), elPct = $("pct");
     var t0 = parseDate(store.start).getTime(), total = tgt - t0, done = now - t0;
@@ -415,6 +467,7 @@
     $("fDate").value = store.exam;
     $("fTime").value = store.time;
     $("fStart").value = store.start;
+    renderYearChips();
     wrap.classList.add("open"); wrap.setAttribute("aria-hidden", "false");
   }
   function closeSheet(){ wrap.classList.remove("open"); wrap.setAttribute("aria-hidden", "true"); }
@@ -455,6 +508,7 @@
   });
   try{
     if("serviceWorker" in navigator &&
+       !/capacitor/i.test(navigator.userAgent) &&
        (location.protocol === "https:" || location.hostname === "localhost" || location.hostname === "127.0.0.1")){
       navigator.serviceWorker.register("sw.js");
     }

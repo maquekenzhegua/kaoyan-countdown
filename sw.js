@@ -1,5 +1,5 @@
 /* 考研上岸挂历 - Service Worker:缓存优先,后台静默更新 */
-var CACHE = "ky28-v2";
+var CACHE = "ky28-v3";
 var ASSETS = [
   "./",
   "./index.html",
