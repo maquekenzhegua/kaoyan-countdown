@@ -1,17 +1,12 @@
 {
-  "fudan": {
-    "title": "File:Fudan-building3.jpg",
-    "artist": "No machine-readable author provided.  a href=\"//commons.wikimedia.org/w/index.ph",
-    "license": "Public domain"
+  "ustc": {
+    "title": "File:Gate of USTC.JPG",
+    "artist": "a href=\"//commons.wikimedia.org/w/index.php?title=User:Ryanli&amp;action=edit&am",
+    "license": "CC BY-SA 3.0"
   },
-  "zju": {
-    "title": "File:201912 Front Gate of the High School Affiliated to Zhejiang Normal University.jpg",
-    "artist": "a href=\"//commons.wikimedia.org/wiki/User:MNXANL\" title=\"User:MNXANL\" MNXANL /a",
-    "license": "CC BY-SA 4.0"
-  },
-  "nju": {
-    "title": "File:Nanjing Audit University Library.jpg",
-    "artist": "不定项选择DS📷",
+  "hit": {
+    "title": "File:哈尔滨工业大学西北门看主楼.jpg",
+    "artist": "a href=\"//commons.wikimedia.org/wiki/User:%E8%91%A3%E8%BE%B0%E5%85%B4\" title=\"Us",
     "license": "CC BY-SA 4.0"
   }
 }
