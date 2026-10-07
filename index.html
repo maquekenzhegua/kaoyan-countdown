@@ -250,28 +250,59 @@
     { id:"hit",  name:"哈尔滨工业大学", motto:"规格严格 · 功夫到家" },
     { id:"xjtu", name:"西安交通大学",   motto:"精勤求学 · 敦笃励志" }
   ];
-  var QUOTES = [
-    "你多背的每一个单词,都是考场上的底气。",
-    "图书馆的灯不会白亮,你熬的夜也不会。",
-    "现在偷的懒,都是给对手让的路。",
-    "真题刷三遍,上岸稳一半。",
-    "政治可以九月再开始,单词不能一天停下。",
-    "累是常态,坚持下来的都是研究生。",
-    "你不是在刷题,你是在给录取通知书盖章。",
-    "今天的状态,决定明年此时的位置。",
-    "数学错题本越厚,考场上心里越有底。",
-    "桌上的咖啡会凉,心里的火不能灭。",
-    "别人还在犹豫,你已经在路上。",
-    "把手机放远一点,把梦想拉近一点。",
-    "背不完就一点一点背,反正每天都在变强。",
-    "困了就趴十分钟,醒了接着背肖四。",
-    "这一年孤单吗?不,有四百多万人陪你。",
-    "早安,未来的研究生。",
-    "晚自习结束的时候,记得对自己说声辛苦了。",
-    "录取通知书已经在打印了,就等你签字。",
-    "你现在流的汗,都是明年查分时的泪——甜的。",
-    "一战成硕,上岸要紧。"
-  ];
+  /* 每日一句按备考阶段分层:far 长线期 >180 天,mid 强化期 60~180 天,sprint 冲刺期 ≤60 天 */
+  var QUOTES = {
+    far: [
+      "你多背的每一个单词,都是考场上的底气。",
+      "图书馆的灯不会白亮,你熬的夜也不会。",
+      "现在偷的懒,都是给对手让的路。",
+      "你不是在刷题,你是在给录取通知书盖章。",
+      "今天的状态,决定明年此时的位置。",
+      "桌上的咖啡会凉,心里的火不能灭。",
+      "别人还在犹豫,你已经在路上。",
+      "把手机放远一点,把梦想拉近一点。",
+      "背不完就一点一点背,反正每天都在变强。",
+      "这一年孤单吗?不,有四百多万人陪你。",
+      "早安,未来的研究生。",
+      "晚自习结束的时候,记得对自己说声辛苦了。",
+      "录取通知书已经在打印了,就等你签字。",
+      "你现在流的汗,都是明年查分时的泪——甜的。",
+      "累是常态,坚持下来的都是研究生。",
+      "基础打得越牢,后期冲刺越稳。",
+      "长跑现在拼的不是速度,是不掉队。",
+      "单词是地基,现在多垒一块,考场上就稳一分。"
+    ],
+    mid: [
+      "真题刷三遍,上岸稳一半。",
+      "政治可以九月再开始,单词不能一天停下。",
+      "数学错题本越厚,考场上心里越有底。",
+      "秋季是拉开差距的季节,别松劲。",
+      "专业课笔记该整理成体系了,现在正是时候。",
+      "单词会忘,题会做错,但坚持从不白费。",
+      "大纲千变万化,基础扎实的人最不怕。",
+      "每天一套真题节奏,练到形成肌肉记忆。",
+      "不要和别人比进度,要和昨天的自己比。",
+      "把薄弱科目排进每天的黄金时间。"
+    ],
+    sprint: [
+      "困了就趴十分钟,醒了接着背肖四。",
+      "政治大题背起来,错题本翻起来。",
+      "准考证记得打印,考点酒店早点订。",
+      "最后几十天,稳住心态就是胜利。",
+      "把错题再过一遍,考场上全是熟脸。",
+      "离考场越近,越要稳住自己的节奏。",
+      "你现在多背的每道大题,都是考场上的底气。",
+      "按时睡觉,考场上清醒的脑子最值钱。",
+      "不要再开新题了,吃透旧题更重要。",
+      "坚持到走出考场,你就已经赢了大半。"
+    ]
+  };
+  function dailyQuote(cal){
+    var bucket = cal > 180 ? "far" : (cal > 60 ? "mid" : "sprint");
+    var list = QUOTES[bucket];
+    var qi = Math.floor(Date.now() / 86400000) % list.length;
+    $("quote").textContent = "「 " + list[qi] + " 」";
+  }
 
   var todayStr = function(d){ d = d || new Date();
     return d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2,"0") + "-" + String(d.getDate()).padStart(2,"0"); };
@@ -419,16 +450,15 @@
     var examDay = parseDate(store.exam);
     var day0 = new Date(now.getFullYear(), now.getMonth(), now.getDate());
     var dayKey = todayStr(now);
+    var cal = Math.round((examDay - day0) / 86400000);
     if(dayKey !== lazyDay){
       lazyDay = dayKey;
       renderGrid(now, examDay);
       renderLunar(now);
-      var qi = Math.floor(Date.now() / 86400000) % QUOTES.length;
-      $("quote").textContent = "「 " + QUOTES[qi] + " 」";
+      dailyQuote(Math.max(cal, 0));
     }
     $("kicker").textContent = "距离 " + ky + " 考研初试还有";
     $("ptTitle").textContent = String(ky).slice(2) + " 考研 · 上岸倒计时";
-    var cal = Math.round((examDay - day0) / 86400000);
     var elDays = $("days"), elSub = $("subCount"), elStick = $("stick"), elPct = $("pct");
     var t0 = parseDate(store.start).getTime(), total = tgt - t0, done = now - t0;
     var pct = total > 0 ? Math.min(100, done / total * 100) : 0;
@@ -441,7 +471,7 @@
       var stickDays = Math.max(0, Math.round((day0 - parseDate(store.start)) / 86400000));
       var lazy = 0, cur = new Date(day0.getTime() + 86400000);
       while(cur < examDay){ if(cur.getDay() === 6) lazy++; cur.setTime(cur.getTime() + 86400000); }
-      elStick.textContent = stickDays === 0 ? "今天启程,未来可期 · 还能睡 " + lazy + " 个懒觉" : "备考第 " + (stickDays + 1) + " 天 · 还能睡 " + lazy + " 个懒觉";
+      elStick.textContent = stickDays === 0 ? "今天启程,未来可期 · 初试前还有 " + lazy + " 个周六" : "备考第 " + (stickDays + 1) + " 天 · 初试前还有 " + lazy + " 个周六";
       elPct.textContent = pct.toFixed(1) + "%";
       $("barFill").style.transform = "scaleX(" + (pct / 100) + ")";
     } else if(cal === 0){
