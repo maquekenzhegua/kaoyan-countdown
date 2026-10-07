@@ -1,7 +1,7 @@
 {
-  "name": "考研上岸倒计时",
-  "short_name": "上岸倒计时",
-  "description": "2028 考研初试上岸倒计时",
+  "name": "考研上岸挂历",
+  "short_name": "上岸挂历",
+  "description": "2028 考研上岸挂历倒计时:名校校园 + 日历 + 大红倒计时",
   "lang": "zh-CN",
   "start_url": "./",
   "scope": "./",

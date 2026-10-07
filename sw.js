@@ -1,12 +1,23 @@
-/* 考研上岸倒计时 - Service Worker:缓存优先,后台静默更新 */
-var CACHE = "ky28-v1";
+/* 考研上岸挂历 - Service Worker:缓存优先,后台静默更新 */
+var CACHE = "ky28-v2";
 var ASSETS = [
   "./",
   "./index.html",
   "./manifest.webmanifest",
+  "./sw.js",
+  "./solarlunar.min.js",
   "./icon-192.png",
   "./icon-512.png",
-  "./apple-touch-icon.png"
+  "./apple-touch-icon.png",
+  "./img/thu.jpg",
+  "./img/pku.jpg",
+  "./img/fudan.jpg",
+  "./img/sjtu.jpg",
+  "./img/zju.jpg",
+  "./img/nju.jpg",
+  "./img/ustc.jpg",
+  "./img/hit.jpg",
+  "./img/xjtu.jpg"
 ];
 
 self.addEventListener("install", function (e) {

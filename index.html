@@ -3,193 +3,190 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
-<title>上岸倒计时 · 28考研</title>
-<meta name="description" content="2028 考研初试上岸倒计时">
-<meta name="theme-color" content="#05081a">
+<title>上岸挂历 · 28考研</title>
+<meta name="description" content="2028 考研上岸挂历倒计时:名校校园 + 日历 + 大红倒计时">
+<meta name="theme-color" content="#1a120b">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon-192.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="上岸倒计时">
+<meta name="apple-mobile-web-app-title" content="上岸挂历">
 <style>
   :root{
-    --text:#f5f7ff;
-    --muted:rgba(245,247,255,.62);
-    --faint:rgba(245,247,255,.42);
-    --glass:linear-gradient(145deg,rgba(255,255,255,.10),rgba(255,255,255,.045));
-    --border:rgba(255,255,255,.14);
+    --red:#c8342a; --red-deep:#a5281f;
+    --paper:#faf5ec; --paper2:#f2e9d9;
+    --ink:#33261a; --ink2:#85745f; --line:rgba(90,60,30,.14);
     --serif:"Noto Serif SC","Songti SC","STSong","SimSun",serif;
     --sans:-apple-system,BlinkMacSystemFont,"PingFang SC","HarmonyOS Sans SC","MiSans","Microsoft YaHei","Noto Sans SC",sans-serif;
-    --num:"DIN Alternate","Bahnschrift","Segoe UI","Helvetica Neue",Arial,sans-serif;
-  }
-  body[data-theme="t0"]{
-    --bg0:#05081a;--bg1:#101a4a;--bg2:#41216e;
-    --acc1:#8fb3ff;--acc2:#c99cff;--blobA:rgba(96,120,255,.32);--blobB:rgba(178,110,255,.25);
-  }
-  body[data-theme="t1"]{
-    --bg0:#170614;--bg1:#4e143a;--bg2:#93503f;
-    --acc1:#ffb4a8;--acc2:#ff8fc0;--blobA:rgba(255,120,110,.26);--blobB:rgba(255,120,190,.22);
-  }
-  body[data-theme="t2"]{
-    --bg0:#03130e;--bg1:#0d3a2c;--bg2:#1d6a50;
-    --acc1:#9df0cd;--acc2:#7be0ff;--blobA:rgba(90,230,180,.24);--blobB:rgba(90,200,255,.18);
-  }
-  body[data-theme="t3"]{
-    --bg0:#0d0919;--bg1:#2f2158;--bg2:#a06a33;
-    --acc1:#ffd9a0;--acc2:#ff9f8e;--blobA:rgba(255,190,120,.26);--blobB:rgba(255,130,140,.20);
   }
   *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
   html{height:100%}
-  body{
-    height:100%;color:var(--text);font-family:var(--sans);
-    background:var(--bg0);overflow-x:hidden;
-    color-scheme:dark;
-  }
-  #bg{position:fixed;inset:0;z-index:-2;background:
-    radial-gradient(120% 90% at 85% -10%, var(--bg2) 0%, transparent 55%),
-    radial-gradient(120% 100% at 15% 110%, var(--bg1) 0%, transparent 60%),
-    var(--bg0);
-    transition:background 1s ease;}
-  .blob{position:fixed;border-radius:50%;filter:blur(70px);z-index:-1;pointer-events:none;opacity:.85}
-  #blobA{width:52vmax;height:52vmax;left:-18vmax;top:-16vmax;background:var(--blobA);animation:drift1 26s ease-in-out infinite alternate}
-  #blobB{width:46vmax;height:46vmax;right:-16vmax;bottom:-14vmax;background:var(--blobB);animation:drift2 32s ease-in-out infinite alternate}
-  @keyframes drift1{to{transform:translate(9vmax,7vmax) scale(1.12)}}
-  @keyframes drift2{to{transform:translate(-8vmax,-6vmax) scale(1.08)}}
-  #fx{position:fixed;inset:0;z-index:0;pointer-events:none}
-  main{
-    position:relative;z-index:1;min-height:100dvh;max-width:520px;margin:0 auto;
-    display:flex;flex-direction:column;
-    padding:calc(max(env(safe-area-inset-top),14px) + 10px) 24px calc(max(env(safe-area-inset-bottom),14px) + 14px);
-  }
-  header{display:flex;align-items:center;justify-content:space-between}
-  #today{font-size:13px;color:var(--muted);letter-spacing:.12em}
-  .pill{font-size:12px;letter-spacing:.18em;color:var(--acc1);border:1px solid var(--border);
-    border-radius:999px;padding:5px 13px;background:rgba(255,255,255,.06)}
-  .hero{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
-    text-align:center;padding:22px 0 10px;position:relative}
-  .hero::before{content:"";position:absolute;left:50%;top:52%;transform:translate(-50%,-50%);
-    width:min(120vw,640px);height:min(120vw,640px);border-radius:50%;
-    background:radial-gradient(circle,var(--blobA) 0%,transparent 62%);filter:blur(30px);z-index:-1}
-  .kicker{font-size:15px;letter-spacing:.42em;text-indent:.42em;color:var(--muted);font-weight:500}
-  .days-row{display:flex;align-items:baseline;justify-content:center;margin:2px 0 4px}
-  #days{
-    font-family:var(--num);font-weight:800;line-height:1;
-    font-size:clamp(96px,31vw,190px);letter-spacing:-.01em;
-    background:linear-gradient(180deg,#ffffff 8%,var(--acc1) 70%,var(--acc2) 100%);
-    -webkit-background-clip:text;background-clip:text;color:transparent;
-    filter:drop-shadow(0 10px 34px var(--blobA));
-    font-variant-numeric:tabular-nums;
-  }
-  .unit{font-size:clamp(24px,7vw,34px);font-weight:600;color:var(--acc1);margin-left:10px;opacity:.95}
-  #subCount{font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums;letter-spacing:.06em;margin-top:6px}
-  .card{
-    background:var(--glass);border:1px solid var(--border);border-radius:22px;
-    backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
-    box-shadow:0 18px 50px rgba(0,0,0,.35);
-    padding:17px 19px 19px;display:flex;flex-direction:column;gap:12px;
-  }
-  .row{display:flex;align-items:center;gap:9px;font-size:14px;color:var(--text)}
-  .row .ic{font-size:15px;opacity:.9}
-  .row .lab{color:var(--muted);flex:none}
-  .row .val{font-variant-numeric:tabular-nums;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-  .tag{font-size:10.5px;color:var(--acc1);border:1px solid var(--border);border-radius:6px;padding:1.5px 6px;background:rgba(255,255,255,.05);flex:none;letter-spacing:.08em}
-  .prog-top{display:flex;justify-content:space-between;align-items:baseline;font-size:13px;color:var(--muted)}
-  .prog-top b{color:var(--acc1);font-family:var(--num);font-size:16px;font-weight:700;font-variant-numeric:tabular-nums}
-  .bar{height:8px;border-radius:99px;background:rgba(255,255,255,.10);overflow:hidden;position:relative;margin-top:7px}
-  .bar i{position:absolute;inset:0;border-radius:99px;transform-origin:left;
-    background:linear-gradient(90deg,var(--acc1),var(--acc2));transition:transform 1.2s cubic-bezier(.22,.8,.28,1)}
-  .bar::after{content:"";position:absolute;top:0;bottom:0;width:34%;
-    background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent);
-    animation:shine 5.5s ease-in-out infinite}
-  @keyframes shine{0%{left:-40%}55%,100%{left:110%}}
-  .quote{margin:20px 6px 4px;text-align:center;font-family:var(--serif);
-    font-size:14.5px;line-height:1.9;color:var(--muted);letter-spacing:.1em}
-  footer{display:flex;justify-content:center;gap:12px;padding-top:14px;flex-wrap:wrap}
-  footer button{
-    font-family:var(--sans);font-size:13.5px;color:var(--text);letter-spacing:.1em;
-    background:rgba(255,255,255,.07);border:1px solid var(--border);border-radius:999px;
-    padding:10px 22px;cursor:pointer;transition:background .2s,transform .1s;backdrop-filter:blur(8px)}
-  footer button:active{transform:scale(.96)}
-  footer button:hover{background:rgba(255,255,255,.12)}
-  #btnInstall{display:none;border-color:var(--acc1);color:var(--acc1)}
-  /* ---------- 设置面板 ---------- */
-  #sheetWrap{position:fixed;inset:0;z-index:20;visibility:hidden}
+  body{min-height:100%;background:#191411;font-family:var(--sans);color:var(--ink);color-scheme:light;-webkit-font-smoothing:antialiased}
+  .poster{position:relative;max-width:520px;margin:0 auto;min-height:100dvh;display:flex;flex-direction:column;
+    background:var(--paper);box-shadow:0 0 70px rgba(0,0,0,.6)}
+  /* ---------- 照片区 ---------- */
+  .photo{position:relative;height:40dvh;min-height:250px;overflow:hidden;background:#241a12}
+  .pimg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .8s ease}
+  .pimg.show{opacity:1}
+  .scrim{position:absolute;inset:0;background:
+    linear-gradient(180deg,rgba(12,7,4,.46) 0%,rgba(12,7,4,0) 26%,rgba(12,7,4,0) 44%,rgba(20,11,6,.78) 100%)}
+  .photo-top{position:absolute;left:0;right:0;top:0;display:flex;justify-content:space-between;align-items:flex-start;
+    padding:calc(max(env(safe-area-inset-top),12px) + 8px) 16px 0}
+  .pt-title{color:#fff;font-size:13px;letter-spacing:.24em;font-weight:600;text-shadow:0 1px 8px rgba(0,0,0,.5);padding-top:6px}
+  .seal{width:58px;height:58px;background:var(--red);color:#fff;border-radius:10px 15px 11px 16px;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    font-family:var(--serif);font-weight:700;font-size:21px;line-height:1.15;letter-spacing:0;
+    transform:rotate(7deg);box-shadow:inset 0 0 0 2.5px rgba(255,255,255,.55),0 6px 18px rgba(0,0,0,.4);
+    user-select:none}
+  .photo-bottom{position:absolute;left:0;right:0;bottom:0;display:flex;align-items:flex-end;justify-content:space-between;
+    padding:0 16px calc(max(env(safe-area-inset-bottom),0px) + 13px)}
+  .school{font-family:var(--serif);font-size:26px;font-weight:700;color:#fff;text-shadow:0 2px 14px rgba(0,0,0,.6);letter-spacing:.06em}
+  .motto{font-size:11.5px;color:rgba(255,255,255,.92);letter-spacing:.22em;margin-top:5px;text-shadow:0 1px 8px rgba(0,0,0,.5)}
+  .swap-hint{display:inline-flex;align-items:center;gap:5px;font-family:var(--sans);font-size:11px;color:rgba(255,255,255,.92);
+    background:rgba(0,0,0,.30);border:1px solid rgba(255,255,255,.4);border-radius:999px;padding:6px 12px;cursor:pointer;
+    backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+  .swap-hint:active{transform:scale(.95)}
+  .swap-hint svg,.btn svg{width:13px;height:13px}
+  /* ---------- 日历纸 ---------- */
+  .paper{flex:1;display:flex;flex-direction:column;
+    background:
+      repeating-linear-gradient(0deg,rgba(120,80,30,.014) 0 1px,transparent 1px 4px),
+      radial-gradient(120% 90% at 50% 0%,#fdf8f0 0%,var(--paper) 60%,var(--paper2) 130%);
+    box-shadow:inset 0 8px 14px -10px rgba(60,30,10,.35)}
+  .band{background:linear-gradient(180deg,#d0392e,var(--red) 70%,#b02b22);color:#fff;
+    display:flex;align-items:baseline;justify-content:space-between;
+    padding:10px 18px 9px;box-shadow:0 3px 10px rgba(160,40,30,.28)}
+  .band-month{font-family:var(--serif);font-size:20px;font-weight:700;letter-spacing:.1em}
+  .band-lunar{font-size:11.5px;opacity:.94;letter-spacing:.1em}
+  .grid{display:grid;grid-template-columns:repeat(7,1fr);padding:8px 14px 0;align-items:center}
+  .gh{font-size:11px;color:var(--ink2);text-align:center;height:24px;line-height:24px;letter-spacing:.05em}
+  .gh.we{color:var(--red)}
+  .d{height:29px;display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--ink);
+    position:relative;font-variant-numeric:tabular-nums}
+  .d.today{background:var(--red);color:#fff;border-radius:50%;width:27px;height:27px;margin:0 auto;
+    font-weight:700;box-shadow:0 2px 8px rgba(200,52,42,.45)}
+  .d.exam{width:27px;height:27px;margin:0 auto;border:1.6px solid var(--red);border-radius:50%;
+    color:var(--red);font-weight:700;background:rgba(200,52,42,.07)}
+  .d.exam::before,.d.today.exam::before{content:"考";position:absolute;top:-5px;right:-9px;width:15px;height:15px;
+    background:var(--red);color:#fff;font-size:9px;border-radius:50%;line-height:15px;text-align:center;font-weight:700}
+  .orn{display:flex;align-items:center;gap:10px;margin:8px 26px 0;color:var(--gold)}
+  .orn::before,.orn::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(150,110,50,.5));}
+  .orn::after{background:linear-gradient(90deg,rgba(150,110,50,.5),transparent)}
+  .orn i{font-style:normal;font-size:9px;transform:rotate(45deg);display:block}
+  .count{text-align:center;padding:4px 16px 0}
+  .k{font-size:13px;color:var(--red-deep);letter-spacing:.34em;text-indent:.34em;font-weight:600}
+  .big{font-family:var(--serif);line-height:1;margin:2px 0 3px;color:var(--red);
+    text-shadow:0 2px 0 rgba(165,40,31,.14)}
+  .big span{font-size:clamp(76px,25vw,118px);font-weight:900;letter-spacing:-.01em;
+    font-variant-numeric:tabular-nums}
+  .big i{font-style:normal;font-size:26px;font-weight:700;color:var(--ink);margin-left:9px;font-family:var(--serif)}
+  .sub{font-size:12.5px;color:var(--ink2);letter-spacing:.08em;font-variant-numeric:tabular-nums}
+  .quote{font-family:var(--serif);text-align:center;font-size:13.5px;line-height:1.9;color:#6d5d4b;
+    padding:9px 22px 0;letter-spacing:.06em}
+  .meta{margin-top:auto;padding:10px 18px calc(max(env(safe-area-inset-bottom),12px) + 12px)}
+  .prog-top{display:flex;justify-content:space-between;align-items:baseline;font-size:12px;color:var(--ink2);
+    font-variant-numeric:tabular-nums}
+  .prog-top b{color:var(--red);font-size:14px;font-weight:700}
+  .bar{height:5px;border-radius:99px;background:rgba(120,80,30,.14);overflow:hidden;margin-top:6px}
+  .bar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#d0392e,#e0663f);
+    transform-origin:left;transition:transform 1.1s cubic-bezier(.22,.8,.28,1)}
+  .btns{display:flex;gap:10px;margin-top:13px}
+  .btn{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:6px;font-family:var(--sans);
+    font-size:13px;letter-spacing:.1em;color:var(--red-deep);background:transparent;
+    border:1.5px solid rgba(165,40,31,.55);border-radius:999px;padding:9px 0;cursor:pointer;transition:transform .1s,background .2s}
+  .btn:hover{background:rgba(200,52,42,.06)}
+  .btn:active{transform:scale(.96)}
+  #btnInstall{display:none;border-style:dashed}
+  /* ---------- 设置 ---------- */
+  #sheetWrap{position:fixed;inset:0;z-index:30;visibility:hidden}
   #sheetWrap.open{visibility:visible}
-  #mask{position:absolute;inset:0;background:rgba(0,0,0,.55);backdrop-filter:blur(4px);
-    opacity:0;transition:opacity .3s}
+  #mask{position:absolute;inset:0;background:rgba(20,10,5,.5);opacity:0;transition:opacity .3s}
   #sheetWrap.open #mask{opacity:1}
-  #sheet{
-    position:absolute;left:0;right:0;bottom:0;max-width:520px;margin:0 auto;
-    background:rgba(22,20,40,.96);border:1px solid var(--border);border-bottom:none;
-    border-radius:26px 26px 0 0;padding:12px 24px calc(max(env(safe-area-inset-bottom),18px) + 18px);
+  #sheet{position:absolute;left:0;right:0;bottom:0;max-width:520px;margin:0 auto;
+    background:var(--paper);border-radius:24px 24px 0 0;padding:12px 24px calc(max(env(safe-area-inset-bottom),16px) + 16px);
     transform:translateY(105%);transition:transform .38s cubic-bezier(.22,.9,.3,1);
-    box-shadow:0 -20px 60px rgba(0,0,0,.5)}
+    box-shadow:0 -18px 60px rgba(0,0,0,.45);color:var(--ink)}
   #sheetWrap.open #sheet{transform:translateY(0)}
-  .grab{width:42px;height:4px;border-radius:99px;background:rgba(255,255,255,.25);margin:2px auto 14px}
-  #sheet h2{font-size:17px;font-weight:600;letter-spacing:.14em;margin-bottom:16px;text-align:center}
-  .field{margin-bottom:14px}
-  .field label{display:block;font-size:12.5px;color:var(--muted);letter-spacing:.1em;margin-bottom:7px}
-  .field input[type=text],.field input[type=date],.field input[type=time]{
-    width:100%;font-family:var(--sans);font-size:15px;color:var(--text);
-    background:rgba(255,255,255,.08);border:1px solid var(--border);border-radius:13px;
-    padding:11px 13px;outline:none}
-  .field input:focus{border-color:var(--acc1)}
+  .grab{width:42px;height:4px;border-radius:99px;background:rgba(90,60,30,.28);margin:2px auto 14px}
+  #sheet h2{font-family:var(--serif);font-size:17px;font-weight:700;letter-spacing:.3em;text-indent:.3em;
+    text-align:center;margin-bottom:15px;color:var(--ink)}
+  .field{margin-bottom:13px}
+  .field label{display:block;font-size:12px;color:var(--ink2);letter-spacing:.12em;margin-bottom:6px}
+  .field input{width:100%;font-family:var(--sans);font-size:15px;color:var(--ink);background:#fff;
+    border:1px solid #dbcbb4;border-radius:12px;padding:10px 12px;outline:none}
+  .field input:focus{border-color:var(--red)}
   .grid2{display:grid;grid-template-columns:1.4fr 1fr;gap:10px}
-  .hint{font-size:11.5px;color:var(--faint);line-height:1.6;margin-top:6px}
-  .swatches{display:flex;gap:14px}
-  .sw{width:42px;height:42px;border-radius:50%;cursor:pointer;border:2px solid transparent;position:relative}
-  .sw.on{outline:2px solid #fff;outline-offset:3px}
-  .sw::after{content:"";position:absolute;inset:0;border-radius:50%}
-  .sw0{background:linear-gradient(135deg,#101a4a,#8fb3ff)}
-  .sw1{background:linear-gradient(135deg,#4e143a,#ffb4a8)}
-  .sw2{background:linear-gradient(135deg,#0d3a2c,#9df0cd)}
-  .sw3{background:linear-gradient(135deg,#2f2158,#ffd9a0)}
-  .sheet-btns{display:flex;gap:10px;margin-top:20px}
-  .sheet-btns button{flex:1;font-family:var(--sans);font-size:15px;border-radius:14px;padding:13px 0;cursor:pointer;letter-spacing:.14em}
-  #btnSave{border:none;color:#0b0b18;font-weight:700;
-    background:linear-gradient(90deg,var(--acc1),var(--acc2))}
-  #btnReset{background:transparent;border:1px solid var(--border);color:var(--muted)}
+  .hint{font-size:11px;color:#a08d74;line-height:1.7;margin-top:6px}
+  .sheet-btns{display:flex;gap:10px;margin-top:18px}
+  .sheet-btns button{flex:1;font-family:var(--sans);font-size:15px;border-radius:13px;padding:12px 0;cursor:pointer;letter-spacing:.2em;text-indent:.2em}
+  #btnSave{border:1px solid var(--red);color:#fff;font-weight:600;background:var(--red)}
+  #btnReset{background:transparent;border:1px solid #d5c5ae;color:var(--ink2)}
+  @media (max-height:760px){
+    .photo{height:34dvh;min-height:210px}
+    .d{height:25px}
+    .big span{font-size:clamp(64px,21vw,96px)}
+    .quote{padding-top:6px}
+    .school{font-size:22px}
+  }
   @media (prefers-reduced-motion:reduce){
-    .blob,.bar::after{animation:none}
-    #sheet,#mask,.bar i{transition:none}
+    .pimg,.bar i,#sheet,#mask{transition:none}
   }
 </style>
 </head>
-<body data-theme="t0">
-<div id="bg"></div>
-<div class="blob" id="blobA"></div>
-<div class="blob" id="blobB"></div>
-<canvas id="fx"></canvas>
-
-<main>
-  <header>
-    <div id="today"></div>
-    <div class="pill" id="pill"></div>
-  </header>
-
-  <section class="hero">
-    <p class="kicker" id="kicker">距离考研初试</p>
-    <div class="days-row"><span id="days">--</span><span class="unit">天</span></div>
-    <div id="subCount"></div>
+<body>
+<div class="poster">
+  <section class="photo" id="photoBox">
+    <img class="pimg" id="imgA" alt="校园">
+    <img class="pimg" id="imgB" alt="校园">
+    <div class="scrim"></div>
+    <div class="photo-top">
+      <div class="pt-title">28 考研 · 上岸倒计时</div>
+      <div class="seal"><span>上</span><span>岸</span></div>
+    </div>
+    <div class="photo-bottom">
+      <div>
+        <div class="school" id="schoolName"></div>
+        <div class="motto" id="schoolMotto"></div>
+      </div>
+      <button class="swap-hint" id="btnSwapPhoto" aria-label="换一所学校">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M21 12a9 9 0 1 1-2.6-6.3M21 3v6h-6"/></svg>
+        换一所
+      </button>
+    </div>
   </section>
 
-  <section class="card">
-    <div class="row"><span class="ic">📅</span><span class="lab">初试</span><span class="val" id="examText"></span><span class="tag">暂定</span></div>
-    <div class="row"><span class="ic">🎯</span><span class="lab">目标</span><span class="val" id="goalText">未填写</span></div>
-    <div class="prog-top"><span id="stickText">已坚持 -- 天</span><b id="pct">--%</b></div>
-    <div class="bar"><i id="barFill"></i></div>
+  <section class="paper">
+    <div class="band">
+      <div class="band-month" id="bandMonth"></div>
+      <div class="band-lunar" id="bandLunar"></div>
+    </div>
+    <div class="grid" id="grid"></div>
+    <div class="orn"><i>◆</i></div>
+    <div class="count">
+      <div class="k" id="kicker">距离 2028 考研初试还有</div>
+      <div class="big"><span id="days">--</span><i>天</i></div>
+      <div class="sub" id="subCount"></div>
+    </div>
+    <div class="quote" id="quote"></div>
+    <div class="meta">
+      <div class="prog-top"><span id="stick"></span><b id="pct"></b></div>
+      <div class="bar"><i id="barFill"></i></div>
+      <div class="btns">
+        <button class="btn" id="btnSwap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M21 12a9 9 0 1 1-2.6-6.3M21 3v6h-6"/></svg>
+          换一所
+        </button>
+        <button class="btn" id="btnSettings">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="3.2"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.87l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.7 1.7 0 0 0-1.87-.34 1.7 1.7 0 0 0-1.03 1.56V21a2 2 0 1 1-4 0v-.09a1.7 1.7 0 0 0-1.11-1.56 1.7 1.7 0 0 0-1.87.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.7 1.7 0 0 0 .34-1.87 1.7 1.7 0 0 0-1.56-1.03H3a2 2 0 1 1 0-4h.09A1.7 1.7 0 0 0 4.65 8.9a1.7 1.7 0 0 0-.34-1.87l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.7 1.7 0 0 0 1.87.34h.08A1.7 1.7 0 0 0 10.12 3V3a2 2 0 1 1 4 0v.09a1.7 1.7 0 0 0 1.03 1.56 1.7 1.7 0 0 0 1.87-.34l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.7 1.7 0 0 0-.34 1.87v.08a1.7 1.7 0 0 0 1.56 1.03H21a2 2 0 1 1 0 4h-.09a1.7 1.7 0 0 0-1.51 1.03z"/></svg>
+          设置
+        </button>
+        <button class="btn" id="btnInstall">安装应用</button>
+      </div>
+    </div>
   </section>
-
-  <p class="quote" id="quote"></p>
-
-  <footer>
-    <button id="btnInstall">⬇️ 安装应用</button>
-    <button id="btnTheme">✦ 换主题</button>
-    <button id="btnSettings">⚙️ 设置</button>
-  </footer>
-</main>
+</div>
 
 <div id="sheetWrap" aria-hidden="true">
   <div id="mask"></div>
@@ -197,8 +194,9 @@
     <div class="grab"></div>
     <h2>设 置</h2>
     <div class="field">
-      <label>目标院校 / 座右铭</label>
-      <input type="text" id="fGoal" maxlength="20" placeholder="例如:清华大学(可留空)">
+      <label>目标院校(匹配到名校可锁定它的照片)</label>
+      <input type="text" id="fGoal" maxlength="20" list="schoolList" placeholder="例如:复旦大学(可留空)">
+      <datalist id="schoolList"></datalist>
     </div>
     <div class="field">
       <div class="grid2">
@@ -217,30 +215,56 @@
       <label>开始备考日期</label>
       <input type="date" id="fStart">
     </div>
-    <div class="field">
-      <label>主题</label>
-      <div class="swatches" id="swatches">
-        <div class="sw sw0" data-t="0" title="深空蓝紫"></div>
-        <div class="sw sw1" data-t="1" title="暮色玫瑰"></div>
-        <div class="sw sw2" data-t="2" title="松风黛绿"></div>
-        <div class="sw sw3" data-t="3" title="曙光金"></div>
-      </div>
-    </div>
     <div class="sheet-btns">
       <button id="btnReset">恢复默认</button>
-      <button id="btnSave">保存</button>
+      <button id="btnSave">保 存</button>
     </div>
   </div>
 </div>
 
+<script src="solarlunar.min.js"></script>
 <script>
 (function(){
   "use strict";
-  var KEY = "ky28.v1";
+  var KEY = "ky28.v2";
   var DEF_DATE = "2027-12-18", DEF_TIME = "08:30";
+  var SCHOOLS = [
+    { id:"thu",  name:"清华大学",       motto:"自强不息 · 厚德载物" },
+    { id:"pku",  name:"北京大学",       motto:"思想自由 · 兼容并包" },
+    { id:"fudan",name:"复旦大学",       motto:"博学而笃志 · 切问而近思" },
+    { id:"sjtu", name:"上海交通大学",   motto:"饮水思源 · 爱国荣校" },
+    { id:"zju",  name:"浙江大学",       motto:"求是创新" },
+    { id:"nju",  name:"南京大学",       motto:"诚朴雄伟 · 励学敦行" },
+    { id:"ustc", name:"中国科学技术大学", motto:"红专并进 · 理实交融" },
+    { id:"hit",  name:"哈尔滨工业大学", motto:"规格严格 · 功夫到家" },
+    { id:"xjtu", name:"西安交通大学",   motto:"精勤求学 · 敦笃励志" }
+  ];
+  var QUOTES = [
+    "你多背的每一个单词,都是考场上的底气。",
+    "图书馆的灯不会白亮,你熬的夜也不会。",
+    "现在偷的懒,都是给对手让的路。",
+    "真题刷三遍,上岸稳一半。",
+    "政治可以九月再开始,单词不能一天停下。",
+    "累是常态,坚持下来的都是研究生。",
+    "你不是在刷题,你是在给录取通知书盖章。",
+    "今天的状态,决定明年此时的位置。",
+    "数学错题本越厚,考场上心里越有底。",
+    "桌上的咖啡会凉,心里的火不能灭。",
+    "别人还在犹豫,你已经在路上。",
+    "把手机放远一点,把梦想拉近一点。",
+    "背不完就一点一点背,反正每天都在变强。",
+    "困了就趴十分钟,醒了接着背肖四。",
+    "这一年孤单吗?不,有四百多万人陪你。",
+    "早安,未来的研究生。",
+    "晚自习结束的时候,记得对自己说声辛苦了。",
+    "录取通知书已经在打印了,就等你签字。",
+    "你现在流的汗,都是明年查分时的泪——甜的。",
+    "一战成硕,上岸要紧。"
+  ];
+
   var todayStr = function(d){ d = d || new Date();
     return d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2,"0") + "-" + String(d.getDate()).padStart(2,"0"); };
-  var store = { exam: DEF_DATE, time: DEF_TIME, goal: "", start: todayStr(), theme: 0, quote: true };
+  var store = { exam: DEF_DATE, time: DEF_TIME, goal: "", start: todayStr(), school: "" };
   try{
     var raw = localStorage.getItem(KEY);
     if(raw){ var s = JSON.parse(raw);
@@ -249,201 +273,180 @@
         if(typeof s.time === "string" && /^\d{2}:\d{2}$/.test(s.time)) store.time = s.time;
         if(typeof s.goal === "string") store.goal = s.goal;
         if(typeof s.start === "string" && /^\d{4}-\d{2}-\d{2}$/.test(s.start)) store.start = s.start;
-        if([0,1,2,3].indexOf(s.theme) >= 0) store.theme = s.theme;
-        if(typeof s.quote === "boolean") store.quote = s.quote;
+        if(typeof s.school === "string") store.school = s.school;
       }
     }
   }catch(e){}
   function save(){ try{ localStorage.setItem(KEY, JSON.stringify(store)); }catch(e){} }
 
-  var QUOTES = [
-    "星光不问赶路人,时光不负有心人。",
-    "你翻过的每一页书,都会在考场上发光。",
-    "所有的逆袭,都是有备而来。",
-    "此刻埋头赶路的人,终将抬头看到光。",
-    "慢慢来,谁还没有一段厚积薄发的日子。",
-    "别慌,月亮也正在大海的某处迷茫。",
-    "今天的自律,是明天的自由。",
-    "单词会忘,题会做错,但坚持从不白费。",
-    "上岸的人,都曾在深夜里默默坚持。",
-    "备考像在黑屋子里洗衣服,天亮时一切都干净了。",
-    "不问结果,把今天过好。",
-    "每多坚持一天,离录取通知书就近一天。",
-    "愿以满怀孤勇,换明年金榜题名。",
-    "把平凡的日子,过成靠近梦想的台阶。",
-    "累的时候好好睡一觉,醒来继续追光。",
-    "愿你的名字,出现在明年的录取名单里。",
-    "你在书桌前流的汗,都是登顶时的风。",
-    "一研为定,定为研一。"
-  ];
-
   var $ = function(id){ return document.getElementById(id); };
-  var elDays=$("days"), elSub=$("subCount"), elKicker=$("kicker"), elToday=$("today"),
-      elPill=$("pill"), elExam=$("examText"), elGoal=$("goalText"), elStick=$("stickText"),
-      elPct=$("pct"), elBar=$("barFill"), elQuote=$("quote");
-
   function parseDate(str){ var p = str.split("-"); return new Date(+p[0], +p[1]-1, +p[2]); }
-  function target(){ // 初试开考时刻(本地时间)
-    var d = parseDate(store.exam), t = store.time.split(":");
-    return new Date(d.getFullYear(), d.getMonth(), d.getDate(), +t[0], +t[1], 0, 0);
-  }
-  var WD = ["日","一","二","三","四","五","六"];
-  function fmtCN(d){ return (d.getMonth()+1) + " 月 " + d.getDate() + " 日 · 星期" + WD[d.getDay()]; }
+  function target(){ var d = parseDate(store.exam), t = store.time.split(":");
+    return new Date(d.getFullYear(), d.getMonth(), d.getDate(), +t[0], +t[1], 0, 0); }
   function pad(n){ return String(n).padStart(2,"0"); }
   function kaoyanYear(t){ return t.getMonth() === 11 ? t.getFullYear() + 1 : t.getFullYear(); }
+  var WD = ["日","一","二","三","四","五","六"];
 
-  var lastTitle = "";
+  /* ---------- 校园照片 ---------- */
+  var imgA = $("imgA"), imgB = $("imgB"), front = imgA;
+  var dayIndex = Math.floor(Date.now() / 86400000);
+  var currentIdx = dayIndex % SCHOOLS.length;
+  function pickSchoolIdx(){
+    var g = store.goal.trim();
+    if(g){
+      for(var i = 0; i < SCHOOLS.length; i++){
+        if(g.indexOf(SCHOOLS[i].name) >= 0 || SCHOOLS[i].name.indexOf(g) >= 0 && g.length >= 2) return i;
+      }
+    }
+    if(store.school){
+      for(var j = 0; j < SCHOOLS.length; j++){ if(SCHOOLS[j].id === store.school) return j; }
+    }
+    return dayIndex % SCHOOLS.length;
+  }
+  function finishSwap(img){
+    if(front !== img){
+      img.classList.add("show");
+      front.classList.remove("show");
+      front = img;
+    }
+    var nx = SCHOOLS[(currentIdx + 1) % SCHOOLS.length];
+    var pre = new Image(); pre.src = "img/" + nx.id + ".jpg";
+  }
+  function showSchool(i){
+    currentIdx = ((i % SCHOOLS.length) + SCHOOLS.length) % SCHOOLS.length;
+    var sc = SCHOOLS[currentIdx];
+    $("schoolName").textContent = sc.name;
+    $("schoolMotto").textContent = sc.motto;
+    var nextImg = (front === imgA) ? imgB : imgA;
+    if(nextImg.getAttribute("data-id") === sc.id && nextImg.naturalWidth > 0){
+      finishSwap(nextImg); return;
+    }
+    nextImg.onload = function(){ finishSwap(nextImg); };
+    nextImg.onerror = function(){ /* 加载失败保留当前照片 */ };
+    nextImg.setAttribute("data-id", sc.id);
+    nextImg.src = "img/" + sc.id + ".jpg";
+    if(nextImg.naturalWidth > 0) finishSwap(nextImg);
+  }
+  function swapPhoto(){ showSchool(currentIdx + 1); }
+  $("btnSwapPhoto").addEventListener("click", function(e){ e.stopPropagation(); swapPhoto(); });
+  $("btnSwap").addEventListener("click", swapPhoto);
+  $("photoBox").addEventListener("click", swapPhoto);
+
+  /* ---------- 日历网格 ---------- */
+  function renderGrid(now, examDay){
+    var y = now.getFullYear(), m = now.getMonth();
+    $("bandMonth").textContent = y + " 年 " + (m + 1) + " 月";
+    var first = new Date(y, m, 1), firstD = first.getDay(), total = new Date(y, m + 1, 0).getDate();
+    var html = "";
+    for(var w = 0; w < 7; w++) html += '<div class="gh' + (w === 0 || w === 6 ? ' we' : '') + '">' + WD[w] + "</div>";
+    for(var b = 0; b < firstD; b++) html += "<div></div>";
+    for(var d = 1; d <= total; d++){
+      var cls = "d", inner = d;
+      if(d === now.getDate()) cls += " today";
+      if(examDay && examDay.getFullYear() === y && examDay.getMonth() === m && examDay.getDate() === d) cls += " exam";
+      html += '<div class="' + cls + '">' + inner + "</div>";
+    }
+    $("grid").innerHTML = html;
+  }
+  function renderLunar(now){
+    var txt = "";
+    try{
+      var sl = (window.solarLunar && (window.solarLunar.solar2lunar || (window.solarLunar.default && window.solarLunar.default.solar2lunar)));
+      if(sl){
+        var r = sl(now.getFullYear(), now.getMonth() + 1, now.getDate());
+        txt = "农历" + (r.isLeap ? "闰" : "") + r.monthCn + r.dayCn + (r.term ? " · " + r.term : "");
+      }
+    }catch(e){}
+    $("bandLunar").textContent = (txt ? txt + " · " : "") + "星期" + WD[now.getDay()];
+  }
+
+  /* ---------- 主时钟 ---------- */
+  var lastTitle = "", lazyDay = "";
   function tick(){
     var now = new Date();
-    elToday.textContent = fmtCN(now);
-    var tgt = target();
-    var ky = kaoyanYear(tgt);
-    elPill.textContent = ky + " 考研";
-    elKicker.textContent = "距离 " + ky + " 考研初试";
-    var examD = parseDate(store.exam);
-    elExam.textContent = examD.getFullYear() + " 年 " + (examD.getMonth()+1) + " 月 " + examD.getDate() + " 日 " + store.time;
-
+    var tgt = target(), ky = kaoyanYear(tgt);
+    var examDay = parseDate(store.exam);
     var day0 = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-    var cal = Math.round((parseDate(store.exam) - day0) / 86400000); // 自然日
-
-    var goalTxt = store.goal ? store.goal : "一战成硕";
-    elGoal.textContent = goalTxt;
+    var dayKey = todayStr(now);
+    if(dayKey !== lazyDay){
+      lazyDay = dayKey;
+      renderGrid(now, examDay);
+      renderLunar(now);
+      var qi = Math.floor(Date.now() / 86400000) % QUOTES.length;
+      $("quote").textContent = "「 " + QUOTES[qi] + " 」";
+    }
+    $("kicker").textContent = "距离 " + ky + " 考研初试还有";
+    var cal = Math.round((examDay - day0) / 86400000);
+    var elDays = $("days"), elSub = $("subCount"), elStick = $("stick"), elPct = $("pct");
+    var t0 = parseDate(store.start).getTime(), total = tgt - t0, done = now - t0;
+    var pct = total > 0 ? Math.min(100, done / total * 100) : 0;
 
     if(cal > 0){
       elDays.textContent = cal;
-      var ms = tgt - now, d2 = Math.max(0, Math.floor(ms/86400000)),
-          r = ms - d2*86400000, h = Math.floor(r/3600000), m = Math.floor(r%3600000/60000), s = Math.floor(r%60000/1000);
-      elSub.textContent = "距开考 " + d2 + " 天 " + pad(h) + ":" + pad(m) + ":" + pad(s);
-      var t0 = parseDate(store.start).getTime();
-      var total = tgt - t0, done = now - t0;
-      var pct = total > 0 ? Math.min(100, done/total*100) : 0;
+      var ms = tgt - now, d2 = Math.max(0, Math.floor(ms / 86400000)),
+          r = ms - d2 * 86400000, h = Math.floor(r / 3600000), mi = Math.floor(r % 3600000 / 60000), se = Math.floor(r % 60000 / 1000);
+      elSub.textContent = "距开考 " + d2 + " 天 " + pad(h) + ":" + pad(mi) + ":" + pad(se);
+      var stickDays = Math.max(0, Math.round((day0 - parseDate(store.start)) / 86400000));
+      var lazy = 0, cur = new Date(day0.getTime() + 86400000);
+      while(cur < examDay){ if(cur.getDay() === 6) lazy++; cur.setTime(cur.getTime() + 86400000); }
+      elStick.textContent = stickDays === 0 ? "今天启程,未来可期 · 还能睡 " + lazy + " 个懒觉" : "备考第 " + (stickDays + 1) + " 天 · 还能睡 " + lazy + " 个懒觉";
       elPct.textContent = pct.toFixed(1) + "%";
-      elBar.style.transform = "scaleX(" + (pct/100) + ")";
-      var stickDays = Math.max(0, Math.round((day0 - parseDate(store.start))/86400000));
-      elStick.textContent = stickDays === 0 ? "今天开始,未来可期" : "已坚持 " + stickDays + " 天";
+      $("barFill").style.transform = "scaleX(" + (pct / 100) + ")";
     } else if(cal === 0){
       elDays.textContent = "0";
       elSub.textContent = "今日初试 · 一战成硕!";
-      elPct.textContent = "100%"; elBar.style.transform = "scaleX(1)";
       elStick.textContent = "养兵千日,用在一时";
+      elPct.textContent = "100%"; $("barFill").style.transform = "scaleX(1)";
     } else {
       elDays.textContent = "上岸";
+      elDays.style.fontSize = "clamp(56px,19vw,88px)";
       elSub.textContent = "初试已结束 · 愿你金榜题名";
-      elPct.textContent = "100%"; elBar.style.transform = "scaleX(1)";
       elStick.textContent = "辛苦了,准研究生";
+      elPct.textContent = "100%"; $("barFill").style.transform = "scaleX(1)";
     }
-
-    var title = (typeof elDays.textContent === "string" && elDays.textContent !== "--")
-      ? (cal > 0 ? cal + " 天 · 上岸倒计时" : "上岸倒计时") : "上岸倒计时";
+    var title = cal > 0 ? cal + " 天 · 上岸挂历" : "上岸挂历";
     if(title !== lastTitle){ document.title = title; lastTitle = title; }
   }
 
-  function dailyQuote(){
-    if(!store.quote){ elQuote.style.display = "none"; return; }
-    elQuote.style.display = "";
-    var i = Math.floor(Date.now()/86400000) % QUOTES.length;
-    elQuote.textContent = "「 " + QUOTES[i] + " 」";
-  }
-
-  /* ---------- 主题 ---------- */
-  function applyTheme(n){
-    store.theme = n; save();
-    document.body.dataset.theme = "t" + n;
-    var meta = document.querySelector('meta[name="theme-color"]');
-    if(meta) meta.content = ["#05081a","#170614","#03130e","#0d0919"][n];
-  }
-  $("btnTheme").addEventListener("click", function(){ applyTheme((store.theme + 1) % 4); renderSwatches(); });
-
-  /* ---------- 设置面板 ---------- */
+  /* ---------- 设置 ---------- */
   var wrap = $("sheetWrap");
-  function renderSwatches(){
-    var sws = document.querySelectorAll(".sw");
-    for(var i=0;i<sws.length;i++) sws[i].classList.toggle("on", +sws[i].dataset.t === store.theme);
-  }
   function openSheet(){
     $("fGoal").value = store.goal;
     $("fDate").value = store.exam;
     $("fTime").value = store.time;
     $("fStart").value = store.start;
-    renderSwatches();
-    wrap.classList.add("open"); wrap.setAttribute("aria-hidden","false");
+    wrap.classList.add("open"); wrap.setAttribute("aria-hidden", "false");
   }
-  function closeSheet(){ wrap.classList.remove("open"); wrap.setAttribute("aria-hidden","true"); }
+  function closeSheet(){ wrap.classList.remove("open"); wrap.setAttribute("aria-hidden", "true"); }
   $("btnSettings").addEventListener("click", openSheet);
   $("mask").addEventListener("click", closeSheet);
-  $("swatches").addEventListener("click", function(e){
-    var t = e.target.closest(".sw"); if(t) applyTheme(+t.dataset.t);
-  });
   $("btnSave").addEventListener("click", function(){
     var g = $("fGoal").value.trim();
     var d = $("fDate").value, t = $("fTime").value, st = $("fStart").value;
-    if(/^\d{4}-\d{2}-\d{2}$/.test(d)) store.exam = d; else store.exam = DEF_DATE;
-    if(/^\d{2}:\d{2}$/.test(t)) store.time = t; else store.time = DEF_TIME;
-    if(/^\d{4}-\d{2}-\d{2}$/.test(st)) store.start = st; else store.start = todayStr();
+    store.exam = /^\d{4}-\d{2}-\d{2}$/.test(d) ? d : DEF_DATE;
+    store.time = /^\d{2}:\d{2}$/.test(t) ? t : DEF_TIME;
+    store.start = /^\d{4}-\d{2}-\d{2}$/.test(st) ? st : todayStr();
     store.goal = g;
-    save(); dailyQuote(); tick(); closeSheet();
+    var matched = "";
+    for(var i = 0; i < SCHOOLS.length; i++){
+      if(g && (g.indexOf(SCHOOLS[i].name) >= 0 || (g.length >= 2 && SCHOOLS[i].name.indexOf(g) >= 0))){ matched = SCHOOLS[i].id; break; }
+    }
+    store.school = matched;
+    save(); showSchool(pickSchoolIdx()); lazyDay = ""; tick(); closeSheet();
   });
   $("btnReset").addEventListener("click", function(){
-    store.exam = DEF_DATE; store.time = DEF_TIME; store.goal = ""; store.start = todayStr();
-    save(); openSheet(); dailyQuote(); tick();
+    store.exam = DEF_DATE; store.time = DEF_TIME; store.goal = ""; store.start = todayStr(); store.school = "";
+    save(); openSheet(); lazyDay = ""; tick(); showSchool(pickSchoolIdx());
   });
-
-  /* ---------- 星空粒子 ---------- */
-  var cv = $("fx"), ctx = cv.getContext("2d"), DPR = Math.min(window.devicePixelRatio || 1, 2);
-  var stars = [], dust = [], W = 0, H = 0, reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  function resize(){
-    W = window.innerWidth; H = window.innerHeight;
-    cv.width = W * DPR; cv.height = H * DPR;
-    cv.style.width = W + "px"; cv.style.height = H + "px";
-    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
-    var n = Math.min(110, Math.round(W * H / 9000));
-    stars = [];
-    for(var i = 0; i < n; i++) stars.push({
-      x: Math.random()*W, y: Math.random()*H, r: Math.random()*1.1 + 0.3,
-      ph: Math.random()*Math.PI*2, sp: 0.4 + Math.random()*1.2
-    });
-    dust = [];
-    for(var j = 0; j < Math.min(26, n/4); j++) dust.push({
-      x: Math.random()*W, y: Math.random()*H, r: Math.random()*2.2 + 1,
-      vy: -(Math.random()*0.18 + 0.05), vx: (Math.random()-0.5)*0.12, a: Math.random()*0.10 + 0.05
-    });
+  var dl = $("schoolList");
+  for(var i = 0; i < SCHOOLS.length; i++){
+    var op = document.createElement("option"); op.value = SCHOOLS[i].name; dl.appendChild(op);
   }
-  function draw(t){
-    ctx.clearRect(0, 0, W, H);
-    for(var i = 0; i < stars.length; i++){
-      var s = stars[i], a = 0.25 + 0.55 * (0.5 + 0.5*Math.sin(s.ph + t*0.001*s.sp));
-      ctx.globalAlpha = a;
-      ctx.fillStyle = "#ffffff";
-      ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, 6.2832); ctx.fill();
-    }
-    for(var j = 0; j < dust.length; j++){
-      var d = dust[j];
-      ctx.globalAlpha = d.a;
-      ctx.fillStyle = "#cfe0ff";
-      ctx.beginPath(); ctx.arc(d.x, d.y, d.r, 0, 6.2832); ctx.fill();
-    }
-    ctx.globalAlpha = 1;
-  }
-  var raf;
-  function loop(t){ draw(t || 0); step(); raf = requestAnimationFrame(loop); }
-  function step(){
-    for(var j = 0; j < dust.length; j++){
-      var d = dust[j];
-      d.x += d.vx; d.y += d.vy;
-      if(d.y < -8){ d.y = H + 8; d.x = Math.random()*W; }
-      if(d.x < -8) d.x = W + 8; if(d.x > W + 8) d.x = -8;
-    }
-  }
-  var rsT;
-  window.addEventListener("resize", function(){ clearTimeout(rsT); rsT = setTimeout(resize, 150); });
-  resize();
-  if(reduceMotion){ draw(0); } else { raf = requestAnimationFrame(loop); }
 
   /* ---------- PWA ---------- */
   var deferredPrompt = null, btnInstall = $("btnInstall");
   window.addEventListener("beforeinstallprompt", function(e){
-    e.preventDefault(); deferredPrompt = e;
-    btnInstall.style.display = "";
+    e.preventDefault(); deferredPrompt = e; btnInstall.style.display = "";
   });
   btnInstall.addEventListener("click", function(){
     if(!deferredPrompt) return;
@@ -457,8 +460,7 @@
     }
   }catch(e){}
 
-  applyTheme(store.theme);
-  dailyQuote();
+  showSchool(pickSchoolIdx());
   tick();
   setInterval(tick, 1000);
 })();
