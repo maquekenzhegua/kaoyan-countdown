@@ -23,7 +23,7 @@ jobs:
         run: python scripts/fetch_gate_photos.py
 
       - name: Clean up temp files
-        run: rm -f img/credits-gates.json img/ping.txt
+        run: rm -f img/ping.txt
 
       - name: Commit new photos
         run: |
