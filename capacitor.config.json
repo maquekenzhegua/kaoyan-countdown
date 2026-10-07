@@ -1,0 +1,11 @@
+{
+  "appId": "io.github.maquekenzhegua.kaoyan",
+  "appName": "上岸挂历",
+  "webDir": "www",
+  "android": {
+    "backgroundColor": "#1A120B"
+  },
+  "server": {
+    "androidScheme": "https"
+  }
+}

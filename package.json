@@ -1,0 +1,25 @@
+{
+  "name": "kaoyan-countdown",
+  "version": "1.0.0",
+  "description": "一个为 2028 考研人打造的「挂历海报」风上岸倒计时应用(PWA):名校校园实拍 + 真实日历版式 + 大红倒计时数字,手机、电脑都能用。",
+  "main": "solarlunar.min.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maquekenzhegua/kaoyan-countdown.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/maquekenzhegua/kaoyan-countdown/issues"
+  },
+  "homepage": "https://github.com/maquekenzhegua/kaoyan-countdown#readme",
+  "dependencies": {
+    "@capacitor/android": "^8.5.2",
+    "@capacitor/cli": "^8.5.2",
+    "@capacitor/core": "^8.5.2"
+  }
+}
